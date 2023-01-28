@@ -21,7 +21,7 @@ with open('./model/word_label_encoder.pickle', 'rb') as enc:
     word_encoder = pickle.load(enc)
 
 data = data1['intents_th'] + data2['intents_en']
-model = keras.models.load_model('chat_model')
+model = keras.models.load_model('./model/chat_model')
 
 def to_sequences(message) -> list[int]:
     msg = pythainlp.word_tokenize(message, engine = 'nercut', keep_whitespace = False)
