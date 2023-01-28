@@ -7,10 +7,10 @@ from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 
-with open('./intents.json', encoding = 'utf-8') as f:
+with open('./data/intents_th.json', encoding = 'utf-8') as f:
     data1 = json.load(f)
 
-with open('./intents2.json', encoding = 'utf-8') as f:
+with open('./data/intents_en.json', encoding = 'utf-8') as f:
     data2 = json.load(f)
 
 data = data1['intents_th'] + data2['intents_en']
@@ -59,7 +59,7 @@ model.add(Dense(num_classes, activation = 'softmax'))
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 model.fit(encoded_sentences, np.array(training_labels), epochs = 800)
 
-model.save("chat_model")
+model.save("./model/chat_model")
 
 with open('./model/label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)

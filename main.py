@@ -8,10 +8,10 @@ from tensorflow import keras
 
 MAX_LENGTH = 20
 
-with open('./intents.json', encoding = 'utf-8') as f:
+with open('./data/intents_th.json', encoding = 'utf-8') as f:
     data1 = json.load(f)
 
-with open('./intents2.json', encoding = 'utf-8') as f:
+with open('./data/intents_en.json', encoding = 'utf-8') as f:
     data2 = json.load(f)
 
 with open('./model/label_encoder.pickle', 'rb') as enc:
