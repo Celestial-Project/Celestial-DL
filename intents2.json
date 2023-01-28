@@ -1,0 +1,100 @@
+{
+  "intents_en": [
+
+    {
+      "tag": "greetings_en",
+      "patterns": [
+        "Hi", 
+        "Hey", 
+        "Is anyone there?", 
+        "Hello", 
+        "Hay"
+      ],
+      "responses": [
+        "Hello",
+        "Hi", 
+        "Hi there"
+      ]
+    },
+
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye", 
+        "See you later", 
+        "Goodbye"
+      ],
+      "responses": [
+        "See you later", 
+        "Have a nice day", 
+        "Bye! Come back again"
+      ]
+    },
+
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "That's helpful",
+        "Thanks for the help"
+      ],
+      "responses": [
+        "Happy to help!",
+        "Any time!",
+        "My pleasure",
+        "You're most welcome!"
+      ]
+    },
+
+    {
+      "tag": "about",
+      "patterns": [
+        "Who are you?", 
+        "What are you?", 
+        "Who you are?"
+      ],
+      "responses": [
+        "I.m Celestial, your bot assistant",
+        "I'm Celestial, an Artificial Intelligent bot"
+      ]
+    },
+
+    {
+      "tag": "name",
+      "patterns": [
+        "what is your name",
+        "what should I call you",
+        "whats your name?",
+        "could you tell me your name?",
+        "how should I call you?",
+        "so, what's you name?"
+      ],
+      "responses": [
+        "You can call me Celestial.",
+        "I'm Celestial!",
+        "Just call me as Celestial"
+      ]
+    },
+
+    {
+      "tag": "help",
+      "patterns": [
+        "Could you help me?",
+        "give me a hand please",
+        "Can you help?",
+        "What can you do for me?",
+        "I need a support",
+        "I need a help",
+        "support me please"
+      ],
+
+      "responses": [
+        "Tell me how can assist you",
+        "Tell me your problem to assist you",
+        "Yes Sure, How can I support you"
+      ]
+    }
+
+  ]
+}
