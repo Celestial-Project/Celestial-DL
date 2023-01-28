@@ -14,10 +14,10 @@ with open('./intents.json', encoding = 'utf-8') as f:
 with open('./intents2.json', encoding = 'utf-8') as f:
     data2 = json.load(f)
 
-with open('label_encoder.pickle', 'rb') as enc:
+with open('./model/label_encoder.pickle', 'rb') as enc:
     label_encoder = pickle.load(enc)
 
-with open('word_label_encoder.pickle', 'rb') as enc:
+with open('./model/word_label_encoder.pickle', 'rb') as enc:
     word_encoder = pickle.load(enc)
 
 data = data1['intents_th'] + data2['intents_en']
