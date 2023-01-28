@@ -59,7 +59,7 @@ model.add(Dense(num_classes, activation = 'softmax'))
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 model.fit(encoded_sentences, np.array(training_labels), epochs = 800)
 
-model.save("chat_model.h5")
+model.save("chat_model")
 
 with open('./model/label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
