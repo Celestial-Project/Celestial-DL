@@ -1,24 +1,18 @@
-import json
 import time
-import pickle
 import pythainlp
 import numpy as np
 
 from tensorflow import keras
 
+from loader import load_json, load_label_encoder
+
 MAX_LENGTH = 20
 
-with open('./data/intents_th.json', encoding = 'utf-8') as f:
-    data1 = json.load(f)
+data1 = load_json('./data/intents_th.json')
+data2 = load_json('./data/intents_en.json')
 
-with open('./data/intents_en.json', encoding = 'utf-8') as f:
-    data2 = json.load(f)
-
-with open('./model/label_encoder.pickle', 'rb') as enc:
-    label_encoder = pickle.load(enc)
-
-with open('./model/word_label_encoder.pickle', 'rb') as enc:
-    word_encoder = pickle.load(enc)
+label_encoder = load_label_encoder('./model/label_encoder.pickle')
+word_encoder = load_label_encoder('./model/label_encoder.pickle')
 
 data = data1['intents_th'] + data2['intents_en']
 model = keras.models.load_model('./model/chat_model')

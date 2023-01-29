@@ -1,4 +1,3 @@
-import json 
 import pickle
 import pythainlp
 import numpy as np
@@ -7,11 +6,10 @@ from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 
-with open('./data/intents_th.json', encoding = 'utf-8') as f:
-    data1 = json.load(f)
+from loader import load_json
 
-with open('./data/intents_en.json', encoding = 'utf-8') as f:
-    data2 = json.load(f)
+data1 = load_json('./data/intents_th.json')
+data2 = load_json('./data/intents_en.json')
 
 data = data1['intents_th'] + data2['intents_en']
 
