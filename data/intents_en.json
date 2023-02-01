@@ -94,6 +94,21 @@
         "Tell me your problem to assist you",
         "Yes Sure, How can I support you"
       ]
+    },
+
+    {
+      "tag": "goodnight_en",
+      "patterns": [
+        "goodnight",
+        "g9",
+        "guess I'll sleep now",
+        "have a good night"
+      ],
+
+      "responses": [
+        "Have a good night sir!",
+        "Good night!"
+      ]
     }
 
   ]
