@@ -18,7 +18,7 @@ data = data1['intents_th'] + data2['intents_en']
 model = keras.models.load_model('./model/chat_model')
 
 def to_sequences(message) -> list[int]:
-    msg = pythainlp.word_tokenize(message, engine = 'nercut', keep_whitespace = False)
+    msg = pythainlp.word_tokenize(message, keep_whitespace = False)
     return word_encoder.transform(msg)
 
 while True:
