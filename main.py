@@ -12,7 +12,7 @@ data1 = load_json('./data/intents_th.json')
 data2 = load_json('./data/intents_en.json')
 
 label_encoder = load_label_encoder('./model/label_encoder.pickle')
-word_encoder = load_label_encoder('./model/label_encoder.pickle')
+word_encoder = load_label_encoder('./model/word_label_encoder.pickle')
 
 data = data1['intents_th'] + data2['intents_en']
 model = keras.models.load_model('./model/chat_model')
