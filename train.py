@@ -7,7 +7,9 @@ from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 
-from loader import load_json
+from loader import load_json, get_model_version
+
+model_version = get_model_version('./model')
 
 data1 = load_json('./data/intents_th.json')
 data2 = load_json('./data/intents_en.json')
@@ -66,4 +68,4 @@ with open('./model/label_encoder.pickle', 'wb') as ecn_file:
 with open('./model/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
     
-shutil.make_archive('model/model', 'zip', './model')
+shutil.make_archive(f'model/model_v{model_version + 1}', 'zip', './model')
