@@ -1,10 +1,13 @@
+import os
 import time
+import shutil
+import zipfile
 import pythainlp
 import numpy as np
 
 from tensorflow import keras
 
-from loader import load_json, load_label_encoder
+from loader import load_json, load_label_encoder, load_keras_model
 
 MAX_LENGTH = 20
 
@@ -15,7 +18,7 @@ label_encoder = load_label_encoder('./model/label_encoder.pickle')
 word_encoder = load_label_encoder('./model/word_label_encoder.pickle')
 
 data = data1['intents_th'] + data2['intents_en']
-model = keras.models.load_model('./model/chat_model')
+model = load_keras_model('./model/chat_model')
 
 def to_sequences(message) -> list[int]:
     msg = pythainlp.word_tokenize(message, keep_whitespace = False)

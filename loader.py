@@ -1,5 +1,6 @@
 import json
 import pickle
+import tensorflow
 
 from sklearn.preprocessing import LabelEncoder
 
@@ -11,3 +12,7 @@ def load_json(path: str) -> dict:
 def load_label_encoder(path: str) -> LabelEncoder:
     with open(path, 'rb') as enc:
         return pickle.load(enc)
+    
+    
+def load_keras_model(path: str) -> tensorflow.keras.models.Sequential:
+    return tensorflow.keras.models.load_model(path)
