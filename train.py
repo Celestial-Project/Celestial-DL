@@ -1,3 +1,4 @@
+import os
 import pickle
 import shutil
 import pythainlp
@@ -69,3 +70,7 @@ with open('./model/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
     
 shutil.make_archive(f'model/model_v{model_version + 1}', 'zip', './model')
+
+shutil.rmtree('./model/chat_model')
+os.remove('./model/label_encoder.pickle')
+os.remove('./model/word_label_encoder.pickle')
