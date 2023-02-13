@@ -1,4 +1,5 @@
 import pickle
+import shutil
 import pythainlp
 import numpy as np
 from tensorflow.keras.models import Sequential
@@ -64,3 +65,5 @@ with open('./model/label_encoder.pickle', 'wb') as ecn_file:
 
 with open('./model/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
+    
+shutil.make_archive('model/model', 'zip', './model')
