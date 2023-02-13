@@ -4,3 +4,4 @@
 /model/label_encoder.pickle
 /model/word_label_encoder.pickle
 /model/model_v*/
+.DS_Store
