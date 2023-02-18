@@ -1,59 +1,83 @@
 import os
-import time
-import shutil
-import zipfile
-import pythainlp
-import numpy as np
+import discord
+import argparse
 
-from tensorflow import keras
+from dotenv import load_dotenv
+from discord.ext import commands
+from chat_processing import process_message
 
-from loader import *
+flags_parser = argparse.ArgumentParser()
+flags_parser.add_argument('-d', '--debug', action='store_true')
 
-MAX_LENGTH = 20
+use_debug_mode = flags_parser.parse_args().debug
 
-model_version = get_model_version('./model')
+intents = discord.Intents.default()
+intents.message_content = True
 
-data1 = load_json('./data/intents_th.json')
-data2 = load_json('./data/intents_en.json')
+client = commands.Bot(
+    command_prefix = '::</!' if use_debug_mode else '</!', 
+    intents = intents, 
+    help_command = None,
+    activity = discord.Game(name = '</!help> for more info.')
+)   
 
-label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encoder.pickle')
-word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
+@client.event
+async def on_ready() -> None:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(f'\u001b[45;1m ** \u001b[0m Status: {"Debug" if use_debug_mode else "Production"}')
+    print(f'\u001b[45;1m ** \u001b[0m Successfully logged in as: {client.user}')
 
-data = data1['intents_th'] + data2['intents_en']
-model = load_keras_model(f'./model/model_v{model_version}/chat_model')
 
-def to_sequences(message) -> list[int]:
-    msg = pythainlp.word_tokenize(message, keep_whitespace = False)
-    return word_encoder.transform(msg)
+@client.event
+async def on_message(message: discord.Message) -> None:
 
-while True:
+    if message.content.startswith('</usr>'):
+        chat_message = message.content.split('</usr>')[1].strip()
+        await message.channel.send(process_message(chat_message, debug = use_debug_mode))
 
-    input_message = input('usr> ').lower()
-
-    start = time.perf_counter()
-
-    if input_message == 'quit':
-        break
+    await client.process_commands(message)
     
-    try:
+    
+@client.command(name = 'help>')
+async def helper(ctx: commands.Context) -> None:
+    
+    help_embed = discord.Embed(
+        title = '', 
+        description = 'an experimental deep-learning Python Discord chat bot who can talk with you in English and Thai.', 
+        color = 0xd357fe
+    )
+    
+    help_embed.set_author(
+        name = 'Celestial-DL#8254', 
+        icon_url = 'https://cdn.discordapp.com/app-icons/927573556961869825/b4b624c1cb68fa3a99a24a8e9942d2a5.png'
+    )
+    
+    help_embed.add_field(
+        name = 'How can you talk to me?', 
+        value = 'You can talk to me by simply type\n`</usr> Your messages` to send me a messages!', 
+        inline = False
+    )
+    
+    help_embed.add_field(
+        name = 'Report Issue', 
+        value = 'If there is a problem with the bot response or any bug with the bot, \nfeel free to report us at: \n**https://github.com/StrixzIV/Celestial-DL/issues**', 
+        inline = True
+    )
+    
+    help_embed.add_field(
+        name = 'Development & Update', 
+        value = 'Follow the latest update at: \n**https://github.com/StrixzIV/Celestial-DL**', 
+        inline = False
+    )
+    
+    help_embed.set_footer(text = '© 2023 MIT License - StrixzIV#6258')
+    
+    await ctx.send(embed = help_embed)
 
-        sequence = to_sequences(input_message)
-        print(sequence)
-        
-        result = model.predict(keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH))
-        print(np.argmax(result))
 
-        tag = label_encoder.inverse_transform([np.argmax(result)])
+if __name__ == '__main__':
 
-        for i in data:
-            if i['tag'] == tag:
-                print(f'celestial: {np.random.choice(i["responses"])}')
-
-    except ValueError as e:
-        print('Unkown responses')
-        print(e)
-
-    end = time.perf_counter()
-
-    elasped = start - end
-    print(f'Time elasped: {round((end - start) * 1000, 4)} ms')
+    process_message("")
+    load_dotenv()
+    
+    client.run(os.getenv('TOKEN'))
