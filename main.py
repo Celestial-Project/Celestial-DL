@@ -19,16 +19,7 @@ client = commands.Bot(
     intents = intents, 
     help_command = None,
     activity = discord.Game(name = '<!help> for more info.')
-)
-
-def is_owner(ctx: commands.Context) -> bool:
-    
-    '''
-        Check if the command user is authorized.
-    '''
-    
-    return ctx.author.id in moderator_ids
-    
+)   
 
 @client.event
 async def on_ready() -> None:
