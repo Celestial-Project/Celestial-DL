@@ -4,7 +4,7 @@ import numpy as np
 
 from tensorflow import keras
 
-from loader import *
+from loader import load_json, load_label_encoder, load_keras_model, get_model_version
 
 MAX_LENGTH = 20
 
@@ -23,34 +23,39 @@ def to_sequences(message) -> list[int]:
     msg = pythainlp.word_tokenize(message, keep_whitespace = False)
     return word_encoder.transform(msg)
 
-while True:
 
-    input_message = input('usr> ').lower()
+def process_message(message: str, debug: bool = False) -> str:
+
+    message = message.lower()
 
     start = time.perf_counter()
-
-    if input_message == 'quit':
-        break
     
     try:
+        sequence = to_sequences(message)
 
-        sequence = to_sequences(input_message)
-        print(sequence)
-        
-        result = model.predict(keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH))
-        print(np.argmax(result))
+    except ValueError:
 
-        tag = label_encoder.inverse_transform([np.argmax(result)])
+        end = time.perf_counter()
 
-        for i in data:
-            if i['tag'] == tag:
-                print(f'celestial: {np.random.choice(i["responses"])}')
+        if debug:
+            print(f'Time elasped: {round((end - start) * 1000, 4)} ms')
+            print(f'Response with intents: *unknown intents*')
+            print(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
 
-    except ValueError as e:
-        print('Unkown responses')
-        print(e)
+        return 'I think I don\'t know this.'
+    
+    result = model.predict(keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH))
+    tag = label_encoder.inverse_transform([np.argmax(result)])
+
+    for intents in data:
+        if intents['tag'] == tag:
+            response = np.random.choice(intents["responses"])
 
     end = time.perf_counter()
 
-    elasped = start - end
-    print(f'Time elasped: {round((end - start) * 1000, 4)} ms')
+    if debug:
+        print(f'Time elasped: {round((end - start) * 1000, 4)} ms')
+        print(f'Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
+        print(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+
+    return response
