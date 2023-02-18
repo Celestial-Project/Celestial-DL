@@ -52,7 +52,7 @@ async def helper(ctx: commands.Context) -> None:
     
     help_embed = discord.Embed(
         title = '', 
-        description = 'a Python Discord chat bot who can talk with you in English and Thai.', 
+        description = 'an experimental deep-learning Python Discord chat bot who can talk with you in English and Thai.', 
         color = 0xd357fe
     )
     
@@ -63,19 +63,19 @@ async def helper(ctx: commands.Context) -> None:
     
     help_embed.add_field(
         name = 'How can you talk to me?', 
-        value = 'You can talk to me by simply type\n`<usr> Your messages` to send me a messages!', 
+        value = 'You can talk to me by simply type\n`</usr> Your messages` to send me a messages!', 
         inline = False
     )
     
     help_embed.add_field(
         name = 'Report Issue', 
-        value = 'If there is a problem with the bot response or any bug with the bot, \nfeel free to report us at: \n**https://github.com/StrixzIV/Celestial/issues/new/choose**', 
+        value = 'If there is a problem with the bot response or any bug with the bot, \nfeel free to report us at: \n**https://github.com/StrixzIV/Celestial-DL/issues**', 
         inline = True
     )
     
     help_embed.add_field(
         name = 'Development & Update', 
-        value = 'Follow the latest update at: \n**https://github.com/StrixzIV/Celestial**', 
+        value = 'Follow the latest update at: \n**https://github.com/StrixzIV/Celestial-DL**', 
         inline = False
     )
     
