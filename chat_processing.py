@@ -38,9 +38,9 @@ def process_message(message: str, debug: bool = False) -> str:
         end = time.perf_counter()
 
         if debug:
-            print(f'Time elasped: {round((end - start) * 1000, 4)} ms')
-            print(f'Response with intents: *unknown intents*')
-            print(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+            print(f'\u001b[45;1m ** \u001b[0m Time elasped: {round((end - start) * 1000, 4)} ms')
+            print(f'\u001b[45;1m ** \u001b[0m Response with intents: *unknown intents*')
+            print(f'\u001b[45;1m ** \u001b[0m In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
 
         return 'I think I don\'t know this.'
     
@@ -54,8 +54,8 @@ def process_message(message: str, debug: bool = False) -> str:
     end = time.perf_counter()
 
     if debug:
-        print(f'Time elasped: {round((end - start) * 1000, 4)} ms')
-        print(f'Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
-        print(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+        print(f'\u001b[45;1m ** \u001b[0m Time elasped: {round((end - start) * 1000, 4)} ms')
+        print(f'\u001b[45;1m ** \u001b[0m Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
+        print(f'\u001b[45;1m ** \u001b[0m In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
 
     return response
