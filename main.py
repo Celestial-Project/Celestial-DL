@@ -1,7 +1,4 @@
-import os
 import time
-import shutil
-import zipfile
 import pythainlp
 import numpy as np
 
