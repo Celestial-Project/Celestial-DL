@@ -88,7 +88,5 @@ if __name__ == '__main__':
 
     process_message("")
     load_dotenv()
-
-    moderator_ids = set([int(ids) for (key, ids) in os.environ.items() if key.startswith('ID')])
     
     client.run(os.getenv('TOKEN'))
