@@ -4,19 +4,17 @@ import numpy as np
 
 from tensorflow import keras
 
-from loader import load_json, load_label_encoder, load_keras_model, get_model_version
+from loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
 
 MAX_LENGTH = 20
 
 model_version = get_model_version('./model')
 
-data1 = load_json('./data/intents_th.json')
-data2 = load_json('./data/intents_en.json')
+data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet')
 
 label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encoder.pickle')
 word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
 
-data = data1['intents_th'] + data2['intents_en']
 model = load_keras_model(f'./model/model_v{model_version}/chat_model')
 
 def to_sequences(message) -> list[int]:

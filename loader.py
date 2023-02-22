@@ -1,13 +1,16 @@
 import os
-import json
 import pickle
 import tensorflow
+import pandas as pd
 
 from sklearn.preprocessing import LabelEncoder
 
-def load_json(path: str) -> dict:
-    with open(path, encoding = 'utf-8') as f:
-        return json.load(f)
+def load_parquet_intents(path: str) -> list[dict]:
+    
+    data = pd.read_parquet(path)
+    chat_list = list(data['intents_en']) + list(data['intents_th'])
+    
+    return [chat for chat in chat_list if chat]
     
 
 def load_label_encoder(path: str) -> LabelEncoder:
