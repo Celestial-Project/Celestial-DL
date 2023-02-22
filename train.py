@@ -3,19 +3,22 @@ import pickle
 import shutil
 import pythainlp
 import numpy as np
+import pandas as pd
+
+from sklearn.preprocessing import LabelEncoder
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from sklearn.preprocessing import LabelEncoder
 
-from loader import load_json, get_model_version
+from loader import get_model_version
 
 model_version = get_model_version('./model')
 
-data1 = load_json('./data/intents_th.json')
-data2 = load_json('./data/intents_en.json')
+data_th = pd.read_json('./data/intents_th.json')
+data_en = pd.read_json('./data/intents_en.json')
 
-data = data1['intents_th'] + data2['intents_en']
+data = list(data_th['intents_th']) + list(data_en['intents_en'])
 
 training_sentences = []
 training_labels = []
@@ -61,16 +64,19 @@ model.add(Dense(num_classes, activation = 'softmax'))
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 model.fit(encoded_sentences, np.array(training_labels), epochs = 800)
 
-model.save("./model/chat_model")
+new_version = model_version + 1
 
-with open('./model/label_encoder.pickle', 'wb') as ecn_file:
+os.makedirs('./model/model_v5')
+
+model.save(f'./model/model_v{new_version}/chat_model')
+
+with open(f'./model/model_v{new_version}/label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
 
-with open('./model/word_label_encoder.pickle', 'wb') as ecn_file:
+with open(f'./model/model_v{new_version}/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
     
-shutil.make_archive(f'model/model_v{model_version + 1}', 'zip', './model')
+out = pd.concat([data_en, data_th], axis = 1)
+out.to_parquet(f'./model/model_v{new_version}/intents.parquet')
 
-shutil.rmtree('./model/chat_model')
-os.remove('./model/label_encoder.pickle')
-os.remove('./model/word_label_encoder.pickle')
+shutil.make_archive(f'model/model_v{new_version}', 'zip', f'./model/model_v{new_version}')
