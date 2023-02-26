@@ -4,5 +4,7 @@ scikit-learn==1.2.1
 numpy==1.22.4
 pythainlp==3.1.1
 python-dotenv==0.21.1
-discord==2.1.1
+discord==2.1.0
 pandas==1.5.1
+pyarrow==11.0.0
+fastparquet==2023.2.0
