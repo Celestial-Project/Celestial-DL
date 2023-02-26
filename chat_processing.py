@@ -2,6 +2,7 @@ import time
 import pythainlp
 import numpy as np
 
+from functools import cache
 from tensorflow import keras
 
 from loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
@@ -17,7 +18,7 @@ word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_en
 
 model = load_keras_model(f'./model/model_v{model_version}/chat_model')
 
-def to_sequences(message) -> list[int]:
+def to_sequences(message: str) -> list[int]:
     msg = pythainlp.word_tokenize(message, keep_whitespace = False)
     return word_encoder.transform(msg)
 
