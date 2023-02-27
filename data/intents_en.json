@@ -18,7 +18,7 @@
     },
 
     {
-      "tag": "goodbye",
+      "tag": "goodbye_en",
       "patterns": [
         "Bye", 
         "See you later", 
@@ -32,7 +32,7 @@
     },
 
     {
-      "tag": "thanks",
+      "tag": "thanks_en",
       "patterns": [
         "Thanks",
         "Thank you",
@@ -61,7 +61,7 @@
     },
 
     {
-      "tag": "name",
+      "tag": "name_en",
       "patterns": [
         "what is your name",
         "what should I call you",
@@ -78,7 +78,7 @@
     },
 
     {
-      "tag": "help",
+      "tag": "help_en",
       "patterns": [
         "Could you help me?",
         "give me a hand please",
