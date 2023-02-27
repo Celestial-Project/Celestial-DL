@@ -2,7 +2,6 @@ import time
 import pythainlp
 import numpy as np
 
-from functools import cache
 from tensorflow import keras
 
 from loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
