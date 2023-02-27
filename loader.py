@@ -21,5 +21,6 @@ def load_label_encoder(path: str) -> LabelEncoder:
 def load_keras_model(path: str) -> tensorflow.keras.models.Sequential:
     return tensorflow.keras.models.load_model(path)
 
+
 def get_model_version(model_path: str) -> int:
-    return int([dir for dir in os.listdir(model_path) if dir.endswith('.zip')][0][7])
+    return max([int(dir[7:]) for dir in os.listdir(model_path) if not dir.endswith('.zip')])
