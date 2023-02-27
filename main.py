@@ -19,12 +19,25 @@ client = commands.Bot(
     command_prefix = '::</!' if use_debug_mode else '</!', 
     intents = intents, 
     help_command = None,
-    activity = discord.Game(name = '</!help> for more info.')
-)   
+    activity = discord.Game(name = '/help for more info.')
+)
 
 @client.event
 async def on_ready() -> None:
+
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    print('\u001b[45;1m ** \u001b[0m Syncing slash commands...')
+    
+    try:
+        synced = await client.tree.sync()
+        print(f'\u001b[45;1m ** \u001b[0m Synced: {len(synced)} commands' if len(synced) != 1 else f'\u001b[45;1m ** \u001b[0m Synced: {len(synced)} command')
+        
+    except Exception as e:
+        print(f'\u001b[41;1m !! \u001b[0m Exception detected: \n{e}')
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print(f'\u001b[45;1m ** \u001b[0m Status: {"Debug" if use_debug_mode else "Production"}')
     print(f'\u001b[45;1m ** \u001b[0m Model version: {get_model_version("./model")}')
     print(f'\u001b[45;1m ** \u001b[0m Successfully logged in as: {client.user}')
@@ -40,8 +53,8 @@ async def on_message(message: discord.Message) -> None:
     await client.process_commands(message)
     
     
-@client.command(name = 'help>')
-async def helper(ctx: commands.Context) -> None:
+@client.tree.command(name = 'help', description = 'Display a help message.')
+async def helper(interaction: discord.Interaction) -> None:
     
     help_embed = discord.Embed(
         title = '', 
@@ -74,7 +87,7 @@ async def helper(ctx: commands.Context) -> None:
     
     help_embed.set_footer(text = '© 2023 MIT License - StrixzIV#6258')
     
-    await ctx.send(embed = help_embed)
+    await interaction.response.send_message(embed = help_embed)
 
 
 if __name__ == '__main__':
