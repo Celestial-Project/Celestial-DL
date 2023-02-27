@@ -24,7 +24,20 @@ client = commands.Bot(
 
 @client.event
 async def on_ready() -> None:
+
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    print('\u001b[45;1m ** \u001b[0m Syncing slash commands...')
+    
+    try:
+        synced = await client.tree.sync()
+        print(f'\u001b[45;1m ** \u001b[0m Synced: {len(synced)} commands' if len(synced) != 1 else f'\u001b[45;1m ** \u001b[0m Synced: {len(synced)} command')
+        
+    except Exception as e:
+        print(f'\u001b[41;1m !! \u001b[0m Exception detected: \n{e}')
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print(f'\u001b[45;1m ** \u001b[0m Status: {"Debug" if use_debug_mode else "Production"}')
     print(f'\u001b[45;1m ** \u001b[0m Model version: {get_model_version("./model")}')
     print(f'\u001b[45;1m ** \u001b[0m Successfully logged in as: {client.user}')
