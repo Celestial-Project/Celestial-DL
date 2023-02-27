@@ -53,8 +53,8 @@ async def on_message(message: discord.Message) -> None:
     await client.process_commands(message)
     
     
-@client.command(name = 'help>')
-async def helper(ctx: commands.Context) -> None:
+@client.tree.command(name = 'help', description = 'Display a help message.')
+async def helper(interaction: discord.Interaction) -> None:
     
     help_embed = discord.Embed(
         title = '', 
@@ -87,7 +87,7 @@ async def helper(ctx: commands.Context) -> None:
     
     help_embed.set_footer(text = '© 2023 MIT License - StrixzIV#6258')
     
-    await ctx.send(embed = help_embed)
+    await interaction.response.send_message(embed = help_embed)
 
 
 if __name__ == '__main__':
