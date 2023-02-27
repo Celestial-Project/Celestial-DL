@@ -2,6 +2,7 @@ import os
 import discord
 import argparse
 
+from loader import get_model_version
 from dotenv import load_dotenv
 from discord.ext import commands
 from chat_processing import process_message
@@ -25,6 +26,7 @@ client = commands.Bot(
 async def on_ready() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
     print(f'\u001b[45;1m ** \u001b[0m Status: {"Debug" if use_debug_mode else "Production"}')
+    print(f'\u001b[45;1m ** \u001b[0m Model version: {get_model_version("./model")}')
     print(f'\u001b[45;1m ** \u001b[0m Successfully logged in as: {client.user}')
 
 
