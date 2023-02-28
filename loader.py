@@ -23,4 +23,11 @@ def load_keras_model(path: str) -> tensorflow.keras.models.Sequential:
 
 
 def get_model_version(model_path: str) -> int:
-    return max([int(dir[7:]) for dir in os.listdir(model_path) if not dir.endswith('.zip')])
+    
+    detected_path = [dir for dir in os.listdir(model_path) if not dir.endswith('.zip') and dir != '.DS_Store']
+    
+    if not detected_path:
+        print('\u001b[41;1m !! \u001b[0m Exception detected: The chat model directory is not found (If you have already download the model, please extract it to the model folder.)')
+        exit(1)
+    
+    return max([int(dir[7:]) for dir in detected_path])
