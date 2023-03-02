@@ -2,9 +2,9 @@ import os
 import discord
 import argparse
 
-from loader import get_model_version
 from dotenv import load_dotenv
 from discord.ext import commands
+from utils.loader import get_model_version
 from chat_processing import process_message
 
 flags_parser = argparse.ArgumentParser()

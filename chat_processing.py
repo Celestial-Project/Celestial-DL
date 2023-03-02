@@ -4,7 +4,7 @@ import numpy as np
 
 from tensorflow import keras
 
-from loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
+from utils.loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
 
 MAX_LENGTH = 20
 
