@@ -4,6 +4,7 @@ import numpy as np
 
 from tensorflow import keras
 
+from utils.logger import info_log
 from utils.loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
 
 MAX_LENGTH = 20
@@ -36,9 +37,9 @@ def process_message(message: str, debug: bool = False) -> str:
         end = time.perf_counter()
 
         if debug:
-            print(f'\u001b[45;1m ** \u001b[0m Time elasped: {round((end - start) * 1000, 4)} ms')
-            print(f'\u001b[45;1m ** \u001b[0m Response with intents: *unknown intents*')
-            print(f'\u001b[45;1m ** \u001b[0m In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+            info_log(f'Time elasped: {round((end - start) * 1000, 4)} ms')
+            info_log('Response with intents: *unknown intents*')
+            info_log(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
 
         return 'I think I don\'t know this.'
     
@@ -52,8 +53,8 @@ def process_message(message: str, debug: bool = False) -> str:
     end = time.perf_counter()
 
     if debug:
-        print(f'\u001b[45;1m ** \u001b[0m Time elasped: {round((end - start) * 1000, 4)} ms')
-        print(f'\u001b[45;1m ** \u001b[0m Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
-        print(f'\u001b[45;1m ** \u001b[0m In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+        info_log(f'Time elasped: {round((end - start) * 1000, 4)} ms')
+        info_log(f'Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
+        info_log(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
 
     return response

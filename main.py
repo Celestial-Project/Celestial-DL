@@ -4,8 +4,10 @@ import argparse
 
 from dotenv import load_dotenv
 from discord.ext import commands
-from utils.loader import get_model_version
 from chat_processing import process_message
+
+from utils.loader import get_model_version
+from utils.logger import info_log, error_log
 
 flags_parser = argparse.ArgumentParser()
 flags_parser.add_argument('-d', '--debug', action='store_true')
@@ -27,20 +29,20 @@ async def on_ready() -> None:
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    print('\u001b[45;1m ** \u001b[0m Syncing slash commands...')
+    info_log('Syncing slash commands...')
     
     try:
         synced = await client.tree.sync()
         
     except Exception as e:
-        print(f'\u001b[41;1m !! \u001b[0m Exception detected: \n{e}')
+        error_log(f'Exception detected: \n{e}')
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    print(f'\u001b[45;1m ** \u001b[0m Synced: {len(synced)} commands' if len(synced) != 1 else f'\u001b[45;1m ** \u001b[0m Synced: {len(synced)} command')
-    print(f'\u001b[45;1m ** \u001b[0m Status: {"Debug" if use_debug_mode else "Production"}')
-    print(f'\u001b[45;1m ** \u001b[0m Model version: {get_model_version("./model")}')
-    print(f'\u001b[45;1m ** \u001b[0m Successfully logged in as: {client.user}')
+    info_log(f'Synced: {len(synced)} commands' if len(synced) != 1 else f'Synced: {len(synced)} command')
+    info_log(f'Status: {"Debug" if use_debug_mode else "Production"}')
+    info_log(f'Model version: {get_model_version("./model")}')
+    info_log(f'Successfully logged in as: {client.user}')
 
 
 @client.event
@@ -92,7 +94,7 @@ async def helper(interaction: discord.Interaction) -> None:
 
 if __name__ == '__main__':
 
-    process_message("")
+    process_message('')
     load_dotenv()
     
     client.run(os.getenv('TOKEN'))
