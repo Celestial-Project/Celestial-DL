@@ -8,7 +8,20 @@
         "Hey", 
         "Is anyone there?", 
         "Hello", 
-        "Hay"
+        "Hay",
+        "Sup",
+        "wassup",
+        "Whats up",
+        "Ayo",
+        "hi babe girl",
+        "Hey yo",
+        "Halo",
+        "what's up",
+        "Hey wassup",
+        "Heyyo",
+        "heyyo wassup",
+        "Hi girl",
+        "sup homie"
       ],
       "responses": [
         "Hello",
@@ -69,7 +82,8 @@
         "whats your name?",
         "could you tell me your name?",
         "how should I call you?",
-        "so, what's you name?"
+        "so, what's you name?",
+        "whats yr name"
       ],
       "responses": [
         "You can call me Celestial.",
@@ -103,7 +117,9 @@
         "goodnight",
         "g9",
         "guess I'll sleep now",
-        "have a good night"
+        "have a good night",
+        "Have a good dream",
+        "GN"
       ],
 
       "responses": [
