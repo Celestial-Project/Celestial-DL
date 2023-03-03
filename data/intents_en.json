@@ -22,7 +22,8 @@
       "patterns": [
         "Bye", 
         "See you later", 
-        "Goodbye"
+        "Goodbye",
+        "see ya"
       ],
       "responses": [
         "See you later", 
@@ -116,10 +117,12 @@
         "patterns": [
             "morning",
             "mornin",
-            "goodmorning"
+            "goodmorning",
+            "good morning"
         ],
         "responses": [
-            "Good morning!"
+            "Good morning!",
+            "Morning!"
         ]
     }
 
