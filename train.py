@@ -11,7 +11,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-from loader import get_model_version
+from utils.loader import get_model_version
 
 model_version = get_model_version('./model')
 
