@@ -48,7 +48,7 @@
     },
 
     {
-      "tag": "about",
+      "tag": "about_en",
       "patterns": [
         "Who are you?", 
         "What are you?", 
@@ -109,6 +109,18 @@
         "Have a good night sir!",
         "Good night!"
       ]
+    },
+
+    {
+        "tag": "goodmorning_en",
+        "patterns": [
+            "morning",
+            "mornin",
+            "goodmorning"
+        ],
+        "responses": [
+            "Good morning!"
+        ]
     }
 
   ]
