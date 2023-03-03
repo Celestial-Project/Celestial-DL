@@ -66,7 +66,7 @@ model.fit(encoded_sentences, np.array(training_labels), epochs = 800)
 
 new_version = model_version + 1
 
-os.makedirs('./model/model_v5')
+os.makedirs(f'./model/model_v{new_version}')
 
 model.save(f'./model/model_v{new_version}/chat_model')
 
