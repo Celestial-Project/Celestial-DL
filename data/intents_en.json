@@ -21,7 +21,8 @@
         "Heyyo",
         "heyyo wassup",
         "Hi girl",
-        "sup homie"
+        "sup homie",
+        "ello"
       ],
       "responses": [
         "Hello",
@@ -36,7 +37,8 @@
         "Bye", 
         "See you later", 
         "Goodbye",
-        "see ya"
+        "see ya",
+        "cya"
       ],
       "responses": [
         "See you later", 
@@ -51,7 +53,8 @@
         "Thanks",
         "Thank you",
         "That's helpful",
-        "Thanks for the help"
+        "Thanks for the help",
+        "TY"
       ],
       "responses": [
         "Happy to help!",
@@ -134,7 +137,8 @@
             "morning",
             "mornin",
             "goodmorning",
-            "good morning"
+            "good morning",
+            "GM"
         ],
         "responses": [
             "Good morning!",
