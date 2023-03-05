@@ -52,13 +52,14 @@ word_label_encoder.fit(wordset)
 encoded_sentences = pad_sequences([word_label_encoder.transform(wl) for wl in wordlist], truncating = 'post', maxlen = 20)
 
 max_length = 20
+embedding_size = 32
 model = Sequential()
 
-model.add(Embedding(len(wordset), 16, input_length = 20))
+model.add(Embedding(len(wordset), embedding_size, input_length = 20))
 model.add(GlobalAveragePooling1D())
-model.add(Dense(16, activation = 'relu'))
-model.add(Dense(16, activation = 'relu'))
-model.add(Dense(16, activation = 'relu'))
+model.add(Dense(embedding_size, activation = 'relu'))
+model.add(Dense(embedding_size, activation = 'relu'))
+model.add(Dense(embedding_size, activation = 'relu'))
 model.add(Dense(num_classes, activation = 'softmax'))
 
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
