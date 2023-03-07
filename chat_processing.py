@@ -1,4 +1,5 @@
 import re
+import json
 import time
 import pythainlp
 import numpy as np
@@ -19,6 +20,9 @@ word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_en
 
 model = load_keras_model(f'./model/model_v{model_version}/chat_model')
 
+with open('./data/unknown_responses.json', encoding = 'utf-8') as f:
+    unknown_responses = json.load(f)
+
 def detect_thai(list_of_words: list[str]) -> bool:
     
     '''
@@ -32,30 +36,35 @@ def detect_thai(list_of_words: list[str]) -> bool:
     return percentage >= 50
 
 
-def to_sequences(message: str) -> list[int]:
-    msg = pythainlp.word_tokenize(message, keep_whitespace = False)
-    return word_encoder.transform(msg)
+def to_sequences(list_of_words: list[str]) -> list[int]:
+    return word_encoder.transform(list_of_words)
 
 
 def process_message(message: str, debug: bool = False) -> str:
 
-    message = message.lower()
-
     start = time.perf_counter()
+
+    message = message.lower()
+    tokenized_text = pythainlp.word_tokenize(message, keep_whitespace = False)
+
+    is_thai = detect_thai(tokenized_text)
     
     try:
-        sequence = to_sequences(message)
+        sequence = to_sequences(tokenized_text)
 
     except ValueError:
+
+        response = np.random.choice(unknown_responses['th'] if is_thai else unknown_responses['en'])
 
         end = time.perf_counter()
 
         if debug:
             info_log(f'Time elasped: {round((end - start) * 1000, 4)} ms')
-            info_log('Response with intents: *unknown intents*')
-            info_log(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+            incoming_log(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+            outgoing_log('Response with intents: *unknown intents*')
+            outgoing_log(response)
 
-        return 'I think I don\'t know this.'
+        return response
     
     result = model.predict(keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH))
     tag = label_encoder.inverse_transform([np.argmax(result)])
