@@ -1,3 +1,4 @@
+import re
 import time
 import pythainlp
 import numpy as np
@@ -17,6 +18,19 @@ label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encode
 word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
 
 model = load_keras_model(f'./model/model_v{model_version}/chat_model')
+
+def detect_thai(list_of_words: list[str]) -> bool:
+    
+    '''
+        Determine of the list of string is Thai or not
+    '''
+    
+    regexp = re.compile(rf'[{pythainlp.thai_characters}]')
+    thai_prob = sum(1 for word in list_of_words if regexp.search(word))
+    percentage = round((thai_prob / len(list_of_words)) * 100, 2)
+    
+    return percentage >= 50
+
 
 def to_sequences(message: str) -> list[int]:
     msg = pythainlp.word_tokenize(message, keep_whitespace = False)
