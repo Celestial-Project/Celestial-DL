@@ -76,7 +76,7 @@ def process_message(message: str, debug: bool = False) -> str:
         
         if intents['tag'] == tag:
             
-            if intents['date'].any():
+            if intents['month']:
                 
                 festival_date = intents['date'].astype(np.int64)
                 festival_month = int(intents['month'])
@@ -93,7 +93,7 @@ def process_message(message: str, debug: bool = False) -> str:
                 print(date_frame)
                 print(current_date)
                 
-            elif not intents['date']:
+            elif not intents['month']:
                 response = np.random.choice(intents['responses'])
 
     end = time.perf_counter()
