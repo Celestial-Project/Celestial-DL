@@ -10,8 +10,19 @@ from utils.logger import error_log
 def load_parquet_intents(path: str) -> list[dict]:
     
     data = pd.read_parquet(path)
-    chat_list = list(data['intents_en']) + list(data['intents_th'])
     
+    list_en = list(data['intents_en'])
+    list_th = list(data['intents_th'])
+    
+    for chat, response in zip(list_en, data['fes_res_en']):
+        if response and chat:
+            chat['responses'] = response
+    
+    for chat, response in zip(list_th, data['fes_res_th']):
+        if response and chat:
+            chat['responses'] = response
+    
+    chat_list = list_en + list_th
     return [chat for chat in chat_list if chat]
     
 
