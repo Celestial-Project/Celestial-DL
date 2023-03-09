@@ -77,7 +77,41 @@ with open(f'./model/model_v{new_version}/label_encoder.pickle', 'wb') as ecn_fil
 with open(f'./model/model_v{new_version}/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
     
+    
 out = pd.concat([data_en, data_th], axis = 1)
-out.to_parquet(f'./model/model_v{new_version}/intents.parquet')
 
+(fes_res_en, fes_res_th) = ([], [])
+
+for en in out['intents_en'].iloc:
+    
+    if isinstance(en, type(np.NaN)):
+        fes_res_en.append(None)
+        continue
+    
+    if isinstance(en['responses'], dict):
+        data = en.pop('responses')
+        en['date'] = [en['date']] if isinstance(en['date'], int) else en['date']
+        fes_res_en.append(data)
+        
+    elif isinstance(en['responses'], list):
+        fes_res_en.append(None)
+
+for th in out['intents_th'].iloc:
+    
+    if isinstance(th, type(np.NaN)):
+        fes_res_th.append(None)
+        continue
+    
+    if isinstance(th['responses'], dict):
+        data = th.pop('responses')
+        th['date'] = [th['date']] if isinstance(th['date'], int) else th['date']
+        fes_res_th.append(data)
+        
+    elif isinstance(th['responses'], list):
+        fes_res_th.append(None)
+        
+out = pd.concat([out, pd.DataFrame({'fes_res_en': fes_res_en})], axis = 1)
+out = pd.concat([out, pd.DataFrame({'fes_res_th': fes_res_th})], axis = 1)
+   
+out.to_parquet(f'./model/model_v{new_version}/intents.parquet')
 shutil.make_archive(f'model/model_v{new_version}', 'zip', f'./model/model_v{new_version}')
