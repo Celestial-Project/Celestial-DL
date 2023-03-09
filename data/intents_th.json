@@ -186,6 +186,40 @@
                 "อรุณสวัสด์ค่า~!",
                 "มอนิ่งค่า~!"
             ]
+        },
+
+        {
+            "tag": "songkran_th",
+            "date": [13, 15],
+            "month": 4,
+            "patterns": [
+                "สงการณต์"
+            ],
+            "responses": {
+            "fes": [
+                "songkran"
+            ],
+            "nonfes": [
+                "not songkran"
+            ]
+            }
+        },
+
+        {
+            "tag": "valentine_th",
+            "date": 14,
+            "month": 2,
+            "patterns": [
+                "วาเลนไทน์"
+            ],
+            "responses": {
+            "fes": [
+                "valentine"
+            ],
+            "nonfes": [
+                "not valentine"
+            ]
+            }
         }
 
     ]

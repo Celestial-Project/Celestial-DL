@@ -144,6 +144,40 @@
             "Good morning!",
             "Morning!"
         ]
+    },
+
+    {
+        "tag": "songkran_en",
+        "date": [13, 15],
+        "month": 4,
+        "patterns": [
+          "songkran"
+        ],
+        "responses": {
+          "fes": [
+            "songkran"
+          ],
+          "nonfes": [
+            "not songkran"
+          ]
+        }
+    },
+
+    {
+        "tag": "valentine_en",
+        "date": 14,
+        "month": 2,
+        "patterns": [
+          "valentine"
+        ],
+        "responses": {
+          "fes": [
+            "valentine"
+          ],
+          "nonfes": [
+            "not valentine"
+          ]
+        }
     }
 
   ]
