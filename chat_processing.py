@@ -3,6 +3,7 @@ import json
 import time
 import pythainlp
 import numpy as np
+import datetime as dt
 
 from tensorflow import keras
 
@@ -46,6 +47,8 @@ def process_message(message: str, debug: bool = False) -> str:
 
     message = message.lower()
     tokenized_text = pythainlp.word_tokenize(message, keep_whitespace = False)
+    
+    current_date = dt.date.today()
 
     is_thai = detect_thai(tokenized_text)
     
@@ -70,8 +73,28 @@ def process_message(message: str, debug: bool = False) -> str:
     tag = label_encoder.inverse_transform([np.argmax(result)])
 
     for intents in data:
+        
         if intents['tag'] == tag:
-            response = np.random.choice(intents["responses"])
+            
+            if intents['date'].any():
+                
+                festival_date = intents['date'].astype(np.int64)
+                festival_month = int(intents['month'])
+                
+                if len(festival_date) == 1:
+                    festival_date = festival_date[0]
+                    date_frame = [dt.datetime(current_date.year, festival_month, festival_date).date()]
+                
+                elif len(festival_date) == 2:
+                    date_range = range(festival_date[0], (festival_date[1] + 1))
+                    date_frame =  [dt.datetime(current_date.year, festival_month, d).date() for d in date_range]
+                    
+                response = np.random.choice(intents['responses']['fes' if current_date in date_frame else 'nonfes'])
+                print(date_frame)
+                print(current_date)
+                
+            elif not intents['date']:
+                response = np.random.choice(intents['responses'])
 
     end = time.perf_counter()
 
