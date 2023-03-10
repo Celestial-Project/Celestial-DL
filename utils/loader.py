@@ -7,22 +7,22 @@ from sklearn.preprocessing import LabelEncoder
 
 from utils.logger import error_log
 
+def _add_responses(chat: dict, response: dict) -> dict:
+
+    if response and chat:
+        chat['responses'] = response
+    
+    return chat
+
+
 def load_parquet_intents(path: str) -> list[dict]:
     
-    data = pd.read_parquet(path)
+    data = pd.read_parquet(path, columns = ['intents_en', 'intents_th', 'fes_res_en', 'fes_res_th'])
     
-    list_en = list(data['intents_en'])
-    list_th = list(data['intents_th'])
+    data['intents_en'] = data.apply(lambda row: _add_responses(row['intents_en'], row['fes_res_en']), axis = 1)
+    data['intents_th'] = data.apply(lambda row: _add_responses(row['intents_th'], row['fes_res_th']), axis = 1)
     
-    for chat, response in zip(list_en, data['fes_res_en']):
-        if response and chat:
-            chat['responses'] = response
-    
-    for chat, response in zip(list_th, data['fes_res_th']):
-        if response and chat:
-            chat['responses'] = response
-    
-    chat_list = list_en + list_th
+    chat_list = data['intents_en'].tolist() + data['intents_th'].tolist()
     return [chat for chat in chat_list if chat]
     
 
