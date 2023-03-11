@@ -90,8 +90,6 @@ def process_message(message: str, debug: bool = False) -> str:
                     date_frame =  [dt.datetime(current_date.year, festival_month, d).date() for d in date_range]
                     
                 response = np.random.choice(intents['responses']['fes' if current_date in date_frame else 'nonfes'])
-                print(date_frame)
-                print(current_date)
                 
             elif not intents['month']:
                 response = np.random.choice(intents['responses'])
