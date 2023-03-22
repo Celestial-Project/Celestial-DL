@@ -119,7 +119,7 @@
         },
 
         {
-            "tag": "goodbye_en",
+            "tag": "goodbye_th",
             "patterns": [
                 "บาย",
                 "บัย",
@@ -135,7 +135,7 @@
         },
 
         {
-            "tag": "thanks_en",
+            "tag": "thanks_th",
             "patterns": [
                 "ขอบคุณ",
                 "ขอบคุณค่า",

@@ -1,4 +1,5 @@
 import os
+import re
 import pickle
 import shutil
 import pythainlp
@@ -13,7 +14,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from utils.loader import get_model_version
 
-model_version = get_model_version('./model')
+model_version = get_model_version('./model') if get_model_version('./model') else 0
 
 data_th = pd.read_json('./data/intents_th.json')
 data_en = pd.read_json('./data/intents_en.json')
@@ -38,7 +39,7 @@ for intent in data:
         
 num_classes = len(labels)
 
-wordlist = [pythainlp.word_tokenize(seq, keep_whitespace = False) for seq in training_sentences]
+wordlist = [pythainlp.word_tokenize(re.sub(r'[\^!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]', '', seq.lower()), keep_whitespace = False) for seq in training_sentences]
 wordset = list(set([j for i in wordlist for j in i]))
 
 label_encoder = LabelEncoder()
