@@ -13,7 +13,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from utils.loader import get_model_version
 
-model_version = get_model_version('./model')
+model_version = get_model_version('./model') if get_model_version('./model') else 0
 
 data_th = pd.read_json('./data/intents_th.json')
 data_en = pd.read_json('./data/intents_en.json')

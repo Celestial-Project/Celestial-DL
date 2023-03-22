@@ -12,7 +12,7 @@ from utils.loader import load_parquet_intents, load_label_encoder, load_keras_mo
 
 MAX_LENGTH = 20
 
-model_version = get_model_version('./model')
+model_version = get_model_version('./model') if get_model_version('./model') else exit(1)
 
 data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet')
 
