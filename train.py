@@ -1,4 +1,5 @@
 import os
+import re
 import pickle
 import shutil
 import pythainlp
@@ -38,7 +39,7 @@ for intent in data:
         
 num_classes = len(labels)
 
-wordlist = [pythainlp.word_tokenize(seq, keep_whitespace = False) for seq in training_sentences]
+wordlist = [pythainlp.word_tokenize(re.sub(r'[\^!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]', '', seq.lower()), keep_whitespace = False) for seq in training_sentences]
 wordset = list(set([j for i in wordlist for j in i]))
 
 label_encoder = LabelEncoder()

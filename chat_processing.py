@@ -46,7 +46,7 @@ def process_message(message: str, debug: bool = False) -> str:
     start = time.perf_counter()
 
     message = message.lower()
-    tokenized_text = pythainlp.word_tokenize(message, keep_whitespace = False)
+    tokenized_text = pythainlp.word_tokenize(re.sub(r'[\^!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]', '', message), keep_whitespace = False)
     
     current_date = dt.date.today()
 
