@@ -41,6 +41,6 @@ def get_model_version(model_path: str) -> int:
     
     if not detected_path:
         error_log('Exception detected: The chat model directory is not found (If you have already download the model, please extract it to the model folder.)')
-        exit(1)
+        return
     
     return max([int(dir[7:]) for dir in detected_path])
