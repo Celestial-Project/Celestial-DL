@@ -69,7 +69,11 @@ def process_message(message: str, debug: bool = False) -> str:
 
         return response
     
-    result = model.predict(keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH))
+    result = model.predict(
+        keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH),
+        verbose = False
+    )
+    
     tag = label_encoder.inverse_transform([np.argmax(result)])
 
     for intents in data:
