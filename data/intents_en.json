@@ -254,6 +254,23 @@
             "Morning!"
         ]
     },
+    
+    {
+        "tag": "ask_eating_en",
+        "patterns": [
+            "are you hungry?",
+            "what do you eat?",
+            "what food do you like?",
+            "hungry?",
+            "you hungry?",
+            "are you hungry?",
+            "what are you eating?",
+            "what's your favorite food?"
+        ],
+        "responses": [
+            "I'm not eating anything because I'm a bot obviously!"
+        ]
+    },
 
     {
         "tag": "songkran_en",
