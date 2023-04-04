@@ -271,6 +271,22 @@
             "I'm not eating anything because I'm a bot obviously!"
         ]
     },
+    
+    {
+        "tag": "creator_en",
+        "patterns": [
+            "who build you?",
+            "who built you?",
+            "who are your creators?",
+            "who gave you life?",
+            "who give you life?",
+            "who create you?",
+            "who's your parents?"
+        ],
+        "responses": [
+          "The person who give me life is Jirayu Kaewsing my creator.\nYou can contact him from this Discord user: `StrixzIV#6258`\nHis assistant name is Natthanan Rungjarudnon.\nYou can contact him from this Discord user: `Peachpiggies#9229`"
+        ]
+    },
 
     {
         "tag": "songkran_en",
