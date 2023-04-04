@@ -289,6 +289,42 @@
             "Today is not valentine's day, but I wish you luck on your love."
           ]
         }
+    },
+        
+    {
+        "tag": "new_year_pre_en",
+        "date": 31,
+        "month": 12,
+        "patterns": [
+            "Happy new year"
+        ],
+            "responses": {
+            "fes": [
+              "Happy new year! I hope next year would be a great year!"
+            ],
+            "nonfes": [
+              "It's not new year yet.",
+              "I think it's not new year right now"
+            ]
+        }
+    },
+    
+    {
+        "tag": "new_year_post_en",
+        "date": [1, 2],
+        "month": 2,
+        "patterns": [
+            "Happy new year"
+        ],
+            "responses": {
+            "fes": [
+              "Happy new year! I hope this year would be a great year!"
+            ],
+            "nonfes": [
+              "It's not new year yet.",
+              "I think it's not new year right now"
+            ]
+        }
     }
 
   ]
