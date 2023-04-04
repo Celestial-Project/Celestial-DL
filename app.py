@@ -1,9 +1,11 @@
+import os
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
+from utils.logger import info_log
 from chat_processing import process_message
 
 debug = False
@@ -37,6 +39,12 @@ def main():
     from waitress import serve
     
     process_message('hello')
+    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    info_log('Chat REST API ready!')
+    info_log('Press ctrl+c to exit.')
+    info_log('API running on: http://localhost:21250')
+    
     serve(app, host = '0.0.0.0', port = 21250)
     
 
