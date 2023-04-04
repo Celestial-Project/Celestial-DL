@@ -200,7 +200,7 @@
       "responses": [
         "You can call me Celestial.",
         "I'm Celestial!",
-        "Just call me as Celestial"
+        "I'm Celestial! or you can call me ceres."
       ]
     },
 
@@ -264,10 +264,11 @@
         ],
         "responses": {
           "fes": [
-            "songkran"
+            "Songkran is here! Pls don't splash water on me.",
+            "Happy Songkran day!"
           ],
           "nonfes": [
-            "not songkran"
+            "You want to splash some water? I think its not the time for that."
           ]
         }
     },
@@ -281,10 +282,11 @@
         ],
         "responses": {
           "fes": [
-            "valentine"
+            "Valentine is here! I wish for you to find your love.",
+            "Happy valentine! Do you have chocolate for me?"
           ],
           "nonfes": [
-            "not valentine"
+            "Today is not valentine's day, but I wish you luck on your love."
           ]
         }
     }
