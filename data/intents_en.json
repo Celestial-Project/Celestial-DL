@@ -181,7 +181,7 @@
         "Who you are?"
       ],
       "responses": [
-        "I.m Celestial, your bot assistant",
+        "I'm Celestial, your bot assistant",
         "I'm Celestial, an Artificial Intelligent bot"
       ]
     },
@@ -269,6 +269,21 @@
         ],
         "responses": [
             "I'm not eating anything because I'm a bot obviously!"
+        ]
+    },
+    
+    {
+        "tag": "speaking_language_en",
+        "patterns": [
+            "what language do you speak?",
+            "what language can you speak?",
+            "how many languages can you speak?",
+            "how many languages do you speak?"
+        ],
+        "responses": [
+          "I can speak with you in English and Thai.",
+          "I can speak 2 languages, English and Thai.",
+          "I could talk with you in both English and Thai."
         ]
     },
     
