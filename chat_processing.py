@@ -14,7 +14,7 @@ MAX_LENGTH = 20
 
 model_version = get_model_version('./model') if get_model_version('./model') else exit(1)
 
-data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet')
+data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet') if load_parquet_intents(f'./model/model_v{model_version}/intents.parquet') else exit(1)
 
 label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encoder.pickle')
 word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
