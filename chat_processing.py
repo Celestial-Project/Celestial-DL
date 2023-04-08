@@ -78,25 +78,26 @@ def process_message(message: str, debug: bool = False) -> str:
 
     for intents in data:
         
-        if intents['tag'] == tag:
+        if intents['tag'] != tag:
+            continue
+
+        if intents['month']:
+
+            festival_date = intents['date'].astype(np.int64)
+            festival_month = int(intents['month'])
             
-            if intents['month']:
+            if len(festival_date) == 1:
+                festival_date = festival_date[0]
+                date_frame = [dt.datetime(current_date.year, festival_month, festival_date).date()]
+            
+            elif len(festival_date) == 2:
+                date_range = range(festival_date[0], (festival_date[1] + 1))
+                date_frame =  [dt.datetime(current_date.year, festival_month, d).date() for d in date_range]
                 
-                festival_date = intents['date'].astype(np.int64)
-                festival_month = int(intents['month'])
-                
-                if len(festival_date) == 1:
-                    festival_date = festival_date[0]
-                    date_frame = [dt.datetime(current_date.year, festival_month, festival_date).date()]
-                
-                elif len(festival_date) == 2:
-                    date_range = range(festival_date[0], (festival_date[1] + 1))
-                    date_frame =  [dt.datetime(current_date.year, festival_month, d).date() for d in date_range]
-                    
-                response = np.random.choice(intents['responses']['fes' if current_date in date_frame else 'nonfes'])
-                
-            elif not intents['month']:
-                response = np.random.choice(intents['responses'])
+            response = np.random.choice(intents['responses']['fes' if current_date in date_frame else 'nonfes'])
+
+        elif not intents['month']:
+            response = np.random.choice(intents['responses'])
 
     end = time.perf_counter()
 
