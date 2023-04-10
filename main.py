@@ -100,7 +100,7 @@ async def helper(interaction: discord.Interaction) -> None:
 
 if __name__ == '__main__':
 
-    # process_message('')
+    process_message('')
     load_dotenv()
     
     client.run(os.getenv('TOKEN'))
