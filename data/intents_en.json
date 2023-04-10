@@ -286,6 +286,20 @@
           "I could talk with you in both English and Thai."
         ]
     },
+
+    {
+      "tag": "doing_en",
+      "patterns": [
+          "what are you doing?",
+          "whatcha doin",
+          "watchadoin",
+          "what do you do"
+      ],
+      "responses": [
+          "I'm chatting with you right here.",
+          "I'm chatting with you right now."
+      ]
+    },
     
     {
         "tag": "creator_en",
