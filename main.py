@@ -49,7 +49,13 @@ async def on_ready() -> None:
 async def on_message(message: discord.Message) -> None:
 
     if message.content.startswith('</usr>'):
+        
         chat_message = message.content.split('</usr>')[1].strip()
+        
+        if not chat_message or chat_message == '':
+            await message.delete()
+            return
+        
         await message.channel.send(process_message(chat_message, debug = use_debug_mode))
 
     await client.process_commands(message)

@@ -131,7 +131,10 @@
         "heyyo wassup",
         "Hi girl",
         "sup homie",
-        "ello"
+        "ello",
+        "hello man",
+        "yo",
+        "yo wassap"
       ],
       "responses": [
         "Hello",
@@ -285,6 +288,20 @@
           "I can speak 2 languages, English and Thai.",
           "I could talk with you in both English and Thai."
         ]
+    },
+
+    {
+      "tag": "doing_en",
+      "patterns": [
+          "what are you doing?",
+          "whatcha doin",
+          "watchadoin",
+          "what do you do"
+      ],
+      "responses": [
+          "I'm chatting with you right here.",
+          "I'm chatting with you right now."
+      ]
     },
     
     {
