@@ -9,7 +9,11 @@ from chat_processing import process_message
 from utils.loader import get_model_version
 from utils.logger import info_log, error_log
 
-flags_parser = argparse.ArgumentParser()
+flags_parser = argparse.ArgumentParser(
+    prog = 'Celestial Discord Bot',
+    description = 'A discord bot integrated with Celestial chat model',
+)
+
 flags_parser.add_argument('-d', '--debug', action='store_true')
 
 use_debug_mode = flags_parser.parse_args().debug
