@@ -10,7 +10,11 @@ from flask_limiter.util import get_remote_address
 from utils.logger import info_log
 from chat_processing import process_message
 
-flags_parser = argparse.ArgumentParser()
+flags_parser = argparse.ArgumentParser(
+    prog = 'Celestial API',
+    description = 'A chat API service of Celestial project',
+)
+
 flags_parser.add_argument('-p', '--port', nargs = '?', default = 21250, type = int)
 flags_parser.add_argument('-d', '--debug', action = 'store_true')
 
