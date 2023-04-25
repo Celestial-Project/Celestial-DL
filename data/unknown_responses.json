@@ -11,7 +11,9 @@
         "I'm not sure what you mean",
         "(-w-)?",
         "What is that even mean!",
-        "I don't get it."
+        "I don't get it.",
+        "Can you explain it more, I'm kinda confused.",
+        "Please... explain it more for me!"
     ],
 
     "th": [
@@ -28,7 +30,9 @@
         "หนูไม่ค่อยเข้าใจเลยค่ะ",
         "(-w-)?",
         "นั่นหมายความว่ายังไงหรอคะ",
-        "หนูไม่เข้าใจเลยค่ะ"
+        "หนูไม่เข้าใจเลยค่ะ",
+        "ช่วยขยายความได้ใหมคะ หนูไม่ค่อยเข้าใจเลยอะค่ะ",
+        "ได้โปรดเถอะค่า... ขยายความให้หนูหน่อยเถอะค่ะ"
     ]    
 
 }
