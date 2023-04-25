@@ -34,7 +34,7 @@ def show_ready(port: int, debug: bool) -> None:
     info_log('Chat REST API ready!')
     info_log(f'Mode: {"Debug" if debug else "Production"}')
     info_log('Press ctrl+c to exit.')
-    info_log(f'API running on: http://localhost:{port}')
+    info_log(f'API running on: http://localhost:{port}/chat-dl')
 
 
 @cross_origin()
