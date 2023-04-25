@@ -39,7 +39,7 @@ def show_ready(port: int, debug: bool) -> None:
 
 @cross_origin()
 @limiter.limit('450/minute')
-@app.route('/chat', methods = ['POST'])
+@app.route('/chat-dl', methods = ['POST'])
 def send_response():
     
     body = request.get_json()
