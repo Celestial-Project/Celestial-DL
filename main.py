@@ -61,6 +61,21 @@ async def on_message(message: discord.Message) -> None:
     await client.process_commands(message)
     
     
+@client.tree.command(name = 'setup-chat', description = 'Setup a text channel for Celestial chat.')
+async def setup_chat(interaction: discord.Interaction) -> None:
+    
+    guild = interaction.guild
+    
+    channel_list = [ch.name for ch in guild.text_channels]
+    
+    if 'celestial-chat' in channel_list:
+        await interaction.response.send_message('Celestial text channel is already existed.')
+        return
+    
+    await guild.create_text_channel('celestial-chat')
+    await interaction.response.send_message('Setup complete!')
+
+    
 @client.tree.command(name = 'help', description = 'Display a help message.')
 async def helper(interaction: discord.Interaction) -> None:
     
@@ -100,7 +115,7 @@ async def helper(interaction: discord.Interaction) -> None:
 
 if __name__ == '__main__':
 
-    process_message('')
+    process_message('a')
     load_dotenv()
     
     client.run(os.getenv('TOKEN'))
