@@ -47,15 +47,9 @@ async def on_ready() -> None:
 
 @client.event
 async def on_message(message: discord.Message) -> None:
-
-    if message.content.startswith('</usr>'):
-        
-        chat_message = message.content.split('</usr>')[1].strip()
-        
-        if not chat_message or chat_message == '':
-            await message.delete()
-            return
-        
+    
+    if message.channel.name == 'celestial-chat' and message.author != client.user:
+        chat_message = message.content.strip()
         await message.channel.send(process_message(chat_message, debug = use_debug_mode))
 
     await client.process_commands(message)
@@ -65,7 +59,6 @@ async def on_message(message: discord.Message) -> None:
 async def setup_chat(interaction: discord.Interaction) -> None:
     
     guild = interaction.guild
-    
     channel_list = [ch.name for ch in guild.text_channels]
     
     if 'celestial-chat' in channel_list:
