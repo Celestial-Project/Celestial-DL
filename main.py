@@ -85,7 +85,7 @@ async def helper(interaction: discord.Interaction) -> None:
     
     help_embed.add_field(
         name = 'How can you talk to me?', 
-        value = 'You can talk to me by simply type\n`</usr> Your messages` to send me a messages!', 
+        value = 'Use `/setup-chat` to setup text channel for me first and then you could just send me a message now.', 
         inline = False
     )
     
