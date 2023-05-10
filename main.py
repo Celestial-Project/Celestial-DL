@@ -51,19 +51,27 @@ async def on_ready() -> None:
 
 @client.event
 async def on_message(message: discord.Message) -> None:
-
-    if message.content.startswith('</usr>'):
-        
-        chat_message = message.content.split('</usr>')[1].strip()
-        
-        if not chat_message or chat_message == '':
-            await message.delete()
-            return
-        
+    
+    if message.channel.name == 'celestial-chat' and message.author != client.user:
+        chat_message = message.content.strip()
         await message.channel.send(process_message(chat_message, debug = use_debug_mode))
 
     await client.process_commands(message)
     
+    
+@client.tree.command(name = 'setup-chat', description = 'Setup a text channel for Celestial chat.')
+async def setup_chat(interaction: discord.Interaction) -> None:
+    
+    guild = interaction.guild
+    channel_list = [ch.name for ch in guild.text_channels]
+    
+    if 'celestial-chat' in channel_list:
+        await interaction.response.send_message('Celestial text channel is already existed.')
+        return
+    
+    await guild.create_text_channel('celestial-chat')
+    await interaction.response.send_message('Setup complete!')
+
     
 @client.tree.command(name = 'help', description = 'Display a help message.')
 async def helper(interaction: discord.Interaction) -> None:
@@ -81,7 +89,7 @@ async def helper(interaction: discord.Interaction) -> None:
     
     help_embed.add_field(
         name = 'How can you talk to me?', 
-        value = 'You can talk to me by simply type\n`</usr> Your messages` to send me a messages!', 
+        value = 'Use `/setup-chat` to setup text channel for me first and then you could just send me a message now.', 
         inline = False
     )
     
