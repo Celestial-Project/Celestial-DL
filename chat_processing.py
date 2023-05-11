@@ -32,7 +32,12 @@ def detect_thai(list_of_words: list[str]) -> bool:
     
     regexp = re.compile(rf'[{pythainlp.thai_characters}]')
     thai_prob = sum(1 for word in list_of_words if regexp.search(word))
-    percentage = round((thai_prob / len(list_of_words)) * 100, 2)
+    
+    try:
+        percentage = round((thai_prob / len(list_of_words)) * 100, 2)
+        
+    except ZeroDivisionError:
+        percentage = 0
     
     return percentage >= 50
 
