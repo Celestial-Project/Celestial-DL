@@ -108,7 +108,7 @@ def process_message(message: str, debug: bool = False) -> str:
 
     if debug:
         info_log(f'Time elasped: {round((end - start) * 1000, 4)} ms')
-        incoming_log(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+        incoming_log(f'In: {tokenized_text}')
         outgoing_log(f'Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
         outgoing_log(response)
 
