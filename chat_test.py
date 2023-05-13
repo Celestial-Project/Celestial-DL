@@ -1,6 +1,10 @@
 import os
 
+from datetime import datetime as dt
+
 from utils.logger import info_log
+from utils.loader import get_model_version
+
 from chat_processing import process_message
 
 # run this file to test your chat intents on the terminal before commit
@@ -21,14 +25,25 @@ def read_input(message: str) -> None:
         return
 
     if message in {'--help', '-h'}:
-        print('''
-            \u001b[43;1m macro \u001b[0m -h --help \t\t Show this help message.
-            \u001b[41;1m  ctl  \u001b[0m ^C ctrl+c \t\t Quit the program.
-            \u001b[41;1m  ctl  \u001b[0m ^D ctrl+d \t\t Quit the program.
-        ''')
+
+        print('\u001b[43;1m macro \u001b[0m -h  --help \t\t Show this help message.')
+        print('\u001b[43;1m macro \u001b[0m -mi --model-info \t Show model info.')
+        print('\u001b[41;1m  ctl  \u001b[0m ^C ctrl+c \t\t Quit the program.')
+        print('\u001b[41;1m  ctl  \u001b[0m ^D ctrl+d \t\t Quit the program.')
 
         return
-                  
+
+    elif message in {'--model-info', '-mi'}:
+
+        model_version = get_model_version('./model')
+        last_trained_date = dt.fromtimestamp(os.path.getmtime(f'./model/model_v{model_version}/chat_model'))
+
+        info_log(f'Model version: {model_version}')
+        info_log(f'Last trained: {last_trained_date.strftime("%d %B %Y")} ({last_trained_date.time().strftime("%H:%M:%S")})')
+        info_log(f'Model path: {os.path.abspath(f"./model/model_v{model_version}")}')
+
+        return
+
     process_message(message, debug = True)
 
 

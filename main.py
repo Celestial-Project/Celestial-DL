@@ -21,6 +21,8 @@ use_debug_mode = flags_parser.parse_args().debug
 intents = discord.Intents.default()
 intents.message_content = True
 
+bot_channel_name = 'celestial-chat'
+
 client = commands.Bot(
     command_prefix = '::</!' if use_debug_mode else '</!', 
     intents = intents, 
@@ -52,7 +54,7 @@ async def on_ready() -> None:
 @client.event
 async def on_message(message: discord.Message) -> None:
     
-    if message.channel.name == 'celestial-chat' and message.author != client.user:
+    if (message.channel.name == bot_channel_name) and (message.author != client.user):
         chat_message = message.content.strip()
         await message.channel.send(process_message(chat_message, debug = use_debug_mode))
 
@@ -65,11 +67,11 @@ async def setup_chat(interaction: discord.Interaction) -> None:
     guild = interaction.guild
     channel_list = [ch.name for ch in guild.text_channels]
     
-    if 'celestial-chat' in channel_list:
+    if bot_channel_name in channel_list:
         await interaction.response.send_message('Celestial text channel is already existed.')
         return
     
-    await guild.create_text_channel('celestial-chat')
+    await guild.create_text_channel(bot_channel_name)
     await interaction.response.send_message('Setup complete!')
 
     
