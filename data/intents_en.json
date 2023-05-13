@@ -321,6 +321,22 @@
           "The person who give me life is Jirayu Kaewsing my creator.\nYou can contact him from this Discord user: `StrixzIV#6258`\nHis assistant name is Natthanan Rungjarudnon.\nYou can contact him from this Discord user: `Peachpiggies#9229`"
         ]
     },
+    
+    {
+        "tag": "age_en",
+        "patterns": [
+            "how old are you?",
+            "how old you are?",
+            "whats your age?",
+            "what your age?",
+            "your age?",
+            "age"
+        ],
+        "responses": [
+            "I'm $age year old now!",
+            "I think I'm $age now."
+        ]
+    },
 
     {
         "tag": "songkran_en",
