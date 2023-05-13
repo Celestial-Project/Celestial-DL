@@ -1,12 +1,14 @@
 import re
 import json
 import time
+import string
 import pythainlp
 import numpy as np
 import datetime as dt
 
 from tensorflow import keras
 
+from utils.bot_info import BotData
 from utils.logger import info_log, incoming_log, outgoing_log
 from utils.loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
 
@@ -20,6 +22,8 @@ label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encode
 word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
 
 model = load_keras_model(f'./model/model_v{model_version}/chat_model')
+
+bot_data = BotData()
 
 with open('./data/unknown_responses.json', encoding = 'utf-8') as f:
     unknown_responses = json.load(f)
@@ -103,6 +107,11 @@ def process_message(message: str, debug: bool = False) -> str:
 
         elif not intents['month']:
             response = np.random.choice(intents['responses'])
+
+        if re.finditer(r'(?<=(?<!\{)\{)[^{}]*(?=\}(?!\}))', response, re.MULTILINE) != set({}):
+            response = string.Template(response).substitute(
+                age = bot_data.get_age()
+            )
 
     end = time.perf_counter()
 
