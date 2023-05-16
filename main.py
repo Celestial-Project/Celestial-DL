@@ -86,7 +86,7 @@ async def helper(interaction: discord.Interaction) -> None:
     
     help_embed.set_author(
         name = 'Celestial-DL#8254', 
-        icon_url = 'https://cdn.discordapp.com/app-icons/927573556961869825/b4b624c1cb68fa3a99a24a8e9942d2a5.png'
+        icon_url = client.user.avatar._url
     )
     
     help_embed.add_field(
