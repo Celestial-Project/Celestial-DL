@@ -381,14 +381,14 @@
         "patterns": [
             "Happy new year"
         ],
-            "responses": {
-            "fes": [
-              "Happy new year! I hope next year would be a great year!"
-            ],
-            "nonfes": [
-              "It's not new year yet.",
-              "I think it's not new year right now"
-            ]
+        "responses": {
+          "fes": [
+            "Happy new year! I hope next year would be a great year!"
+          ],
+          "nonfes": [
+            "It's not new year yet.",
+            "I think it's not new year right now"
+          ]
         }
     },
     
@@ -399,14 +399,33 @@
         "patterns": [
             "Happy new year"
         ],
-            "responses": {
-            "fes": [
-              "Happy new year! I hope this year would be a great year!"
-            ],
-            "nonfes": [
-              "It's not new year yet.",
-              "I think it's not new year right now"
-            ]
+        "responses": {
+          "fes": [
+            "Happy new year! I hope this year would be a great year!"
+          ],
+          "nonfes": [
+            "It's not new year yet.",
+            "I think it's not new year right now"
+          ]
+        }
+    },
+    
+    {
+        "tag": "halloween_en",
+        "date": 31,
+        "month": 10,
+        "patterns": [
+            "halloween",
+            "happy halloween"
+        ],
+        "responses": {
+          "fes": [
+            "Trick or Treat! If you don't want to get trick, you have to give me candies!",
+            "Booh! It's Halloween!"
+          ],
+          "nonfes": [
+            "Wrong date for pulling out costume, but you can still give me candies."
+          ]
         }
     }
 
