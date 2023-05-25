@@ -395,7 +395,7 @@
     {
         "tag": "new_year_post_en",
         "date": [1, 2],
-        "month": 2,
+        "month": 1,
         "patterns": [
             "Happy new year"
         ],
