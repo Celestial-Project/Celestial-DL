@@ -78,6 +78,8 @@ with open(f'./model/model_v{new_version}/label_encoder.pickle', 'wb') as ecn_fil
 with open(f'./model/model_v{new_version}/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
     
+for (en, th) in zip(data_en['intents_en'], data_th['intents_th']):
+    del en['patterns'], th['patterns']
     
 out = pd.concat([data_en, data_th], axis = 1)
 
