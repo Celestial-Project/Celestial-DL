@@ -64,7 +64,7 @@ async def setup_chat(interaction: discord.Interaction) -> None:
     channel_list = [ch.name for ch in guild.text_channels]
     
     if bot_channel_name in channel_list:
-        await interaction.response.send_message('Celestial text channel is already existed.')
+        await interaction.response.send_message(f'<#{discord.utils.get(guild.text_channels, name = bot_channel_name).id}> is already existed.')
         return
     
     await guild.create_text_channel(bot_channel_name)
