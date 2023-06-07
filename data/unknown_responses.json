@@ -14,7 +14,9 @@
         "I don't get it.",
         "Can you explain it more, I'm kinda confused.",
         "Please... explain it more for me!",
-        "I'm so confused, I don't understand what you're trying to say."
+        "I'm so confused, I don't understand what you're trying to say.",
+        "(•w•)?",
+        "(•~•)?"
     ],
 
     "th": [
@@ -34,7 +36,9 @@
         "หนูไม่เข้าใจเลยค่ะ",
         "ช่วยขยายความได้ใหมคะ หนูไม่ค่อยเข้าใจเลยอะค่ะ",
         "ได้โปรดเถอะค่า... ขยายความให้หนูหน่อยเถอะค่ะ",
-        "งงแล้วนะคะ หนูไม่เข้าใจที่พี่จะสื่อค่ะ"
+        "งงแล้วนะคะ หนูไม่เข้าใจที่พี่จะสื่อค่ะ",
+        "(•w•)?",
+        "(•~•)?"
     ]    
 
 }
