@@ -1,8 +1,7 @@
-*.ipynb
-*__pycache__
 *.env
-/model/chat_model/*
-/model/label_encoder.pickle
-/model/word_label_encoder.pickle
-/model/model_v*/
-.DS_Store
+*.ipynb
+*.DS_Store
+*__pycache__
+
+/model/*
+!/model/*.zip
