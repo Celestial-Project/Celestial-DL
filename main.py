@@ -9,7 +9,11 @@ from chat_processing import process_message
 from utils.loader import get_model_version
 from utils.logger import info_log, error_log
 
-flags_parser = argparse.ArgumentParser()
+flags_parser = argparse.ArgumentParser(
+    prog = 'Celestial Discord Bot',
+    description = 'A discord bot integrated with Celestial chat model',
+)
+
 flags_parser.add_argument('-d', '--debug', action='store_true')
 
 use_debug_mode = flags_parser.parse_args().debug
@@ -82,7 +86,7 @@ async def helper(interaction: discord.Interaction) -> None:
     
     help_embed.set_author(
         name = 'Celestial-DL#8254', 
-        icon_url = 'https://cdn.discordapp.com/app-icons/927573556961869825/b4b624c1cb68fa3a99a24a8e9942d2a5.png'
+        icon_url = client.user.avatar._url
     )
     
     help_embed.add_field(
@@ -110,7 +114,7 @@ async def helper(interaction: discord.Interaction) -> None:
 
 if __name__ == '__main__':
 
-    process_message('a')
+    process_message('hello')
     load_dotenv()
     
     client.run(os.getenv('TOKEN'))

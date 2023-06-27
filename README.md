@@ -32,8 +32,8 @@ If you're interested in contributing to this experimental project, we'd love to 
 
 Here's are the things you could help us:
 
-* Add some training sentence (Highly demanded)
-* Add some response to the bot
+* Add some training sentence (Please refer to **[intents](./docs/intents.md)** documentation.)
+* Add some response to the bot (Please refer to **[intents](./docs/intents.md)** documentation.)
 * Improve runtime performance
 * Improve Neural Network architecture
 * Fix some prediction error

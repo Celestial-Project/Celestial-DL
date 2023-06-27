@@ -2,13 +2,141 @@
   "intents_en": [
 
     {
+      "tag": "rude_en",
+      "patterns": [
+        "Seu merda", 
+        "You go to die", 
+        "ambatakum", 
+        "are you stupid", 
+        "arse", 
+        "arsehead", 
+        "arsehole", 
+        "ass", 
+        "asshole", 
+        "balls", 
+        "bastard", 
+        "bitch", 
+        "bollocks", 
+        "boobs", 
+        "brotherfucker", 
+        "bugger", 
+        "bullshit", 
+        "chink", 
+        "cock", 
+        "cocksucker", 
+        "coward", 
+        "crap", 
+        "cunt", 
+        "cunt of a hore", 
+        "damn", 
+        "dick", 
+        "dickhead", 
+        "dumb", 
+        "dumb bot", 
+        "dyke", 
+        "faggot", 
+        "FUCKING DICK WANK", 
+        "fatherfucker", 
+        "fockyou", 
+        "frigger", 
+        "fuck", 
+        "fuck me", 
+        "fuck off", 
+        "fuck shit kunt bitch cock", 
+        "fuck you", 
+        "fuck you bitch", 
+        "fucker", 
+        "fucking your mom", 
+        "fuckity fuck fuck fuck", 
+        "fuq", 
+        "gay", 
+        "gei", 
+        "Go to hell", 
+        "horny", 
+        "horseshit", 
+        "i am horny", 
+        "i hate you", 
+        "i want you to lick my ball", 
+        "idiot", 
+        "Indeed moron", 
+        "I'm sick of you", 
+        "If you were male, I'd suck your dick.", 
+        "kike", 
+        "loser", 
+        "moron", 
+        "motherfucker", 
+        "nigga", 
+        "nigra", 
+        "noob", 
+        "nuds", 
+        "nudz", 
+        "nutz", 
+        "penis",
+        "piss", 
+        "prick", 
+        "pussy", 
+        "shit", 
+        "shite", 
+        "shut the fuck up", 
+        "shut up asshole", 
+        "sisterfucker", 
+        "slag", 
+        "slut", 
+        "spastic", 
+        "stfu", 
+        "stupid", 
+        "suck", 
+        "suck dick", 
+        "suck my dick", 
+        "tits", 
+        "twat", 
+        "virgina", 
+        "wank", 
+        "wanker", 
+        "womb", 
+        "you are a useless", 
+        "you are gay", 
+        "you are shit", 
+        "you are stupid", 
+        "you are very boring",
+        "you bitch", 
+        "you fat whore", 
+        "you son of a bitch", 
+        "you suck", 
+        "you suck dick well"
+      ],
+      "responses": [
+        "I'm sorry you feel that way. I think you calm down just a little bit.",
+        "You guys need to calm down, and let's talk out.",
+        "Jeez... please calm down!"
+      ]
+    },
+
+    {
       "tag": "greetings_en",
       "patterns": [
         "Hi", 
         "Hey", 
         "Is anyone there?", 
         "Hello", 
-        "Hay"
+        "Hay",
+        "Sup",
+        "wassup",
+        "Whats up",
+        "Ayo",
+        "hi babe girl",
+        "Hey yo",
+        "Halo",
+        "what's up",
+        "Hey wassup",
+        "Heyyo",
+        "heyyo wassup",
+        "Hi girl",
+        "sup homie",
+        "ello",
+        "hello man",
+        "yo",
+        "yo wassap"
       ],
       "responses": [
         "Hello",
@@ -23,7 +151,8 @@
         "Bye", 
         "See you later", 
         "Goodbye",
-        "see ya"
+        "see ya",
+        "cya"
       ],
       "responses": [
         "See you later", 
@@ -38,7 +167,8 @@
         "Thanks",
         "Thank you",
         "That's helpful",
-        "Thanks for the help"
+        "Thanks for the help",
+        "TY"
       ],
       "responses": [
         "Happy to help!",
@@ -56,7 +186,7 @@
         "Who you are?"
       ],
       "responses": [
-        "I.m Celestial, your bot assistant",
+        "I'm Celestial, your bot assistant",
         "I'm Celestial, an Artificial Intelligent bot"
       ]
     },
@@ -69,12 +199,13 @@
         "whats your name?",
         "could you tell me your name?",
         "how should I call you?",
-        "so, what's you name?"
+        "so, what's you name?",
+        "whats yr name"
       ],
       "responses": [
         "You can call me Celestial.",
         "I'm Celestial!",
-        "Just call me as Celestial"
+        "I'm Celestial! or you can call me ceres."
       ]
     },
 
@@ -103,7 +234,9 @@
         "goodnight",
         "g9",
         "guess I'll sleep now",
-        "have a good night"
+        "have a good night",
+        "Have a good dream",
+        "GN"
       ],
 
       "responses": [
@@ -118,12 +251,182 @@
             "morning",
             "mornin",
             "goodmorning",
-            "good morning"
+            "good morning",
+            "GM"
         ],
         "responses": [
             "Good morning!",
             "Morning!"
         ]
+    },
+    
+    {
+        "tag": "ask_eating_en",
+        "patterns": [
+            "are you hungry?",
+            "what do you eat?",
+            "what food do you like?",
+            "hungry?",
+            "you hungry?",
+            "are you hungry?",
+            "what are you eating?",
+            "what's your favorite food?"
+        ],
+        "responses": [
+            "I'm not eating anything because I'm a bot obviously!"
+        ]
+    },
+    
+    {
+        "tag": "speaking_language_en",
+        "patterns": [
+            "what language do you speak?",
+            "what language can you speak?",
+            "how many languages can you speak?",
+            "how many languages do you speak?"
+        ],
+        "responses": [
+          "I can speak with you in English and Thai.",
+          "I can speak 2 languages, English and Thai.",
+          "I could talk with you in both English and Thai."
+        ]
+    },
+
+    {
+      "tag": "doing_en",
+      "patterns": [
+          "what are you doing?",
+          "whatcha doin",
+          "watchadoin",
+          "what do you do"
+      ],
+      "responses": [
+          "I'm chatting with you right here.",
+          "I'm chatting with you right now."
+      ]
+    },
+    
+    {
+        "tag": "creator_en",
+        "patterns": [
+            "who build you?",
+            "who built you?",
+            "who are your creators?",
+            "who gave you life?",
+            "who give you life?",
+            "who create you?",
+            "who's your parents?"
+        ],
+        "responses": [
+          "The person who give me life is Jirayu Kaewsing my creator.\nYou can contact him from this Discord user: `StrixzIV#6258`\nHis assistant name is Natthanan Rungjarudnon.\nYou can contact him from this Discord user: `Peachpiggies#9229`"
+        ]
+    },
+    
+    {
+        "tag": "age_en",
+        "patterns": [
+            "how old are you?",
+            "how old you are?",
+            "whats your age?",
+            "what your age?",
+            "your age?",
+            "age"
+        ],
+        "responses": [
+            "I'm $age year old now!",
+            "I think I'm $age now."
+        ]
+    },
+
+    {
+        "tag": "songkran_en",
+        "date": [13, 15],
+        "month": 4,
+        "patterns": [
+          "songkran"
+        ],
+        "responses": {
+          "fes": [
+            "Songkran is here! Pls don't splash water on me.",
+            "Happy Songkran day!"
+          ],
+          "nonfes": [
+            "You want to splash some water? I think its not the time for that."
+          ]
+        }
+    },
+
+    {
+        "tag": "valentine_en",
+        "date": 14,
+        "month": 2,
+        "patterns": [
+          "valentine"
+        ],
+        "responses": {
+          "fes": [
+            "Valentine is here! I wish for you to find your love.",
+            "Happy valentine! Do you have chocolate for me?"
+          ],
+          "nonfes": [
+            "Today is not valentine's day, but I wish you luck on your love."
+          ]
+        }
+    },
+        
+    {
+        "tag": "new_year_pre_en",
+        "date": 31,
+        "month": 12,
+        "patterns": [
+            "Happy new year"
+        ],
+        "responses": {
+          "fes": [
+            "Happy new year! I hope next year would be a great year!"
+          ],
+          "nonfes": [
+            "It's not new year yet.",
+            "I think it's not new year right now"
+          ]
+        }
+    },
+    
+    {
+        "tag": "new_year_post_en",
+        "date": [1, 2],
+        "month": 1,
+        "patterns": [
+            "Happy new year"
+        ],
+        "responses": {
+          "fes": [
+            "Happy new year! I hope this year would be a great year!"
+          ],
+          "nonfes": [
+            "It's not new year yet.",
+            "I think it's not new year right now"
+          ]
+        }
+    },
+    
+    {
+        "tag": "halloween_en",
+        "date": 31,
+        "month": 10,
+        "patterns": [
+            "halloween",
+            "happy halloween"
+        ],
+        "responses": {
+          "fes": [
+            "Trick or Treat! If you don't want to get trick, you have to give me candies!",
+            "Booh! It's Halloween!"
+          ],
+          "nonfes": [
+            "Wrong date for pulling out costume, but you can still give me candies."
+          ]
+        }
     }
 
   ]

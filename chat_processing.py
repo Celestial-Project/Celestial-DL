@@ -1,24 +1,29 @@
 import re
 import json
 import time
+import string
 import pythainlp
 import numpy as np
+import datetime as dt
 
 from tensorflow import keras
 
+from utils.bot_info import BotData
 from utils.logger import info_log, incoming_log, outgoing_log
 from utils.loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
 
 MAX_LENGTH = 20
 
-model_version = get_model_version('./model')
+model_version = get_model_version('./model') if get_model_version('./model') else exit(1)
 
-data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet')
+data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet') if load_parquet_intents(f'./model/model_v{model_version}/intents.parquet') else exit(1)
 
 label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encoder.pickle')
 word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
 
 model = load_keras_model(f'./model/model_v{model_version}/chat_model')
+
+bot_data = BotData()
 
 with open('./data/unknown_responses.json', encoding = 'utf-8') as f:
     unknown_responses = json.load(f)
@@ -31,7 +36,12 @@ def detect_thai(list_of_words: list[str]) -> bool:
     
     regexp = re.compile(rf'[{pythainlp.thai_characters}]')
     thai_prob = sum(1 for word in list_of_words if regexp.search(word))
-    percentage = round((thai_prob / len(list_of_words)) * 100, 2)
+    
+    try:
+        percentage = round((thai_prob / len(list_of_words)) * 100, 2)
+        
+    except ZeroDivisionError:
+        percentage = 0
     
     return percentage >= 50
 
@@ -45,7 +55,9 @@ def process_message(message: str, debug: bool = False) -> str:
     start = time.perf_counter()
 
     message = message.lower()
-    tokenized_text = pythainlp.word_tokenize(message, keep_whitespace = False)
+    tokenized_text = pythainlp.word_tokenize(re.sub(r'[\^!#$%&\n\'\"()*+,-./:;<=>?@[\]^_`{|}~]', '', message), keep_whitespace = False)
+    
+    current_date = dt.date.today()
 
     is_thai = detect_thai(tokenized_text)
     
@@ -66,18 +78,46 @@ def process_message(message: str, debug: bool = False) -> str:
 
         return response
     
-    result = model.predict(keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH))
+    result = model.predict(
+        keras.preprocessing.sequence.pad_sequences([sequence], truncating = 'post', maxlen = MAX_LENGTH),
+        verbose = False
+    )
+    
     tag = label_encoder.inverse_transform([np.argmax(result)])
 
     for intents in data:
-        if intents['tag'] == tag:
-            response = np.random.choice(intents["responses"])
+        
+        if intents['tag'] != tag:
+            continue
+
+        if intents['month']:
+
+            festival_date = intents['date'].astype(np.int64)
+            festival_month = int(intents['month'])
+            
+            if len(festival_date) == 1:
+                festival_date = festival_date[0]
+                date_frame = [dt.datetime(current_date.year, festival_month, festival_date).date()]
+            
+            elif len(festival_date) == 2:
+                date_range = range(festival_date[0], (festival_date[1] + 1))
+                date_frame =  [dt.datetime(current_date.year, festival_month, d).date() for d in date_range]
+                
+            response = np.random.choice(intents['responses']['fes' if current_date in date_frame else 'nonfes'])
+
+        elif not intents['month']:
+            response = np.random.choice(intents['responses'])
+
+        if re.finditer(r'(?<=(?<!\{)\{)[^{}]*(?=\}(?!\}))', response, re.MULTILINE) != set({}):
+            response = string.Template(response).substitute(
+                age = bot_data.get_age()
+            )
 
     end = time.perf_counter()
 
     if debug:
         info_log(f'Time elasped: {round((end - start) * 1000, 4)} ms')
-        incoming_log(f'In: {pythainlp.word_tokenize(message, keep_whitespace = False)}')
+        incoming_log(f'In: {tokenized_text}')
         outgoing_log(f'Response with intents: "{label_encoder.inverse_transform([np.argmax(result)])[0]}"')
         outgoing_log(response)
 
