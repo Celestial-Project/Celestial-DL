@@ -1,6 +1,6 @@
 # Celestial Deep Learning
 
-An experimental deep learning chatbot model that is a part of **[Celestial project](https://github.com/StrixzIV/Celestial)**.
+A successor deep learning chatbot model of the **[Legacy Celestial project](https://github.com/StrixzIV/Celestial)**.
 
 Invite our bot **[here](https://discord.com/api/oauth2/authorize?client_id=1076499674581708800&permissions=274877999104&scope=bot)**.
 
@@ -28,12 +28,18 @@ pip install -r requirements.txt
 
 ## Contributing
 
-If you're interested in contributing to this experimental project, we'd love to have your help!
+If you're interested in contributing to this project, we'd love to have your help!
 
-Here's are the things you could help us:
+Here are some areas where you can contribute:
 
-* Add some training sentence (Please refer to **[intents](./docs/intents.md)** documentation.)
-* Add some response to the bot (Please refer to **[intents](./docs/intents.md)** documentation.)
-* Improve runtime performance
-* Improve Neural Network architecture
-* Fix some prediction error
+* Adding bot's training sentence (Please refer to **[intents](./docs/intents.md)** documentation.)
+* Adding bot's response (Please refer to **[intents](./docs/intents.md)** documentation.)
+* Improving runtime performance
+* Enhancing the neural network architecture
+* Fixing prediction errors
+
+You can also suggest new features or improvements by creating a **[request issue](https://github.com/Celestial-Project/Celestial-DL/issues/new?assignees=StrixzIV&labels=enhancement&projects=&template=feature_request.md&title=%5BREQUEST%5D+)**.
+
+## License
+
+* **[MIT License](./LICENSE.md)**
