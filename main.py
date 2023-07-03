@@ -54,11 +54,11 @@ async def on_ready() -> None:
 @client.event
 async def on_message(message: discord.Message) -> None:
     
-    if (message.channel.name == bot_channel_name) and (message.author != client.user):
-        chat_message = message.content.strip()
-        await message.channel.send(process_message(chat_message, debug = use_debug_mode))
-
-    await client.process_commands(message)
+    if (message.channel.name != bot_channel_name) or (message.author == client.user):
+        return
+    
+    chat_message = message.content.strip()
+    await message.channel.send(process_message(chat_message, debug = use_debug_mode))
     
     
 @client.tree.command(name = 'setup-chat', description = 'Setup a text channel for Celestial chat.')
