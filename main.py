@@ -27,7 +27,7 @@ client = commands.Bot(
     command_prefix = '::$', 
     intents = intents, 
     help_command = None,
-    activity = discord.Game(name = '/help for more info.')
+    activity = discord.Game(name = '`/help` for more info.')
 )
 
 @client.event
@@ -59,6 +59,16 @@ async def on_message(message: discord.Message) -> None:
     
     chat_message = message.content.strip()
     await message.channel.send(process_message(chat_message, debug = use_debug_mode))
+    
+    
+@client.event
+async def on_command_error(_ctx: commands.context.Context, error: any):
+    
+    if isinstance(error, discord.errors.PrivilegedIntentsRequired):
+        error_log('Error: Privileged Intents Gateway is not enabled. Please enable it first at: https://discord.com/developers')
+        
+    elif isinstance(error, discord.errors):
+        pass
     
     
 @client.tree.command(name = 'setup-chat', description = 'Setup a text channel for Celestial chat.')
