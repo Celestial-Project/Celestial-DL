@@ -90,7 +90,7 @@ async def helper(interaction: discord.Interaction) -> None:
     
     help_embed = discord.Embed(
         title = '', 
-        description = 'an experimental deep-learning Python Discord chat bot who can talk with you in English and Thai.', 
+        description = 'a deep-learning Python Discord chatbot who can talk with you in English and Thai.', 
         color = 0xd357fe
     )
     
@@ -100,14 +100,14 @@ async def helper(interaction: discord.Interaction) -> None:
     )
     
     help_embed.add_field(
-        name = 'How can you talk to me?', 
+        name = 'How can you talk with me?', 
         value = 'Use `/setup-chat` to setup text channel for me first and then you could just send me a message now.', 
         inline = False
     )
     
     help_embed.add_field(
         name = 'Report Issue', 
-        value = 'If there is a problem with the bot response or any bug with the bot, \nfeel free to report us at: **[Github issues](https://github.com/Celestial-Project/Celestial-DL/issues)**', 
+        value = 'If there is a problem with the bot response or any bug with me, \nfeel free to report it to our creator at: **[Github issues](https://github.com/Celestial-Project/Celestial-DL/issues)**', 
         inline = True
     )
     
