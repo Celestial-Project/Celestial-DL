@@ -12,9 +12,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-from utils.loader import get_model_version
-
-model_version = get_model_version('./model') if get_model_version('./model') else 0
+model_name = input('Model name: ')
 
 data_th = pd.read_json('./data/intents_th.json')
 data_en = pd.read_json('./data/intents_en.json')
@@ -66,16 +64,14 @@ model.add(Dense(num_classes, activation = 'softmax'))
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 model.fit(encoded_sentences, np.array(training_labels), epochs = 800)
 
-new_version = model_version + 1
+os.makedirs(f'./model/{model_name}')
 
-os.makedirs(f'./model/model_v{new_version}')
+model.save(f'./model/{model_name}/chat_model')
 
-model.save(f'./model/model_v{new_version}/chat_model')
-
-with open(f'./model/model_v{new_version}/label_encoder.pickle', 'wb') as ecn_file:
+with open(f'./model/{model_name}/label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
 
-with open(f'./model/model_v{new_version}/word_label_encoder.pickle', 'wb') as ecn_file:
+with open(f'./model/{model_name}/word_label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(word_label_encoder, ecn_file, protocol = pickle.HIGHEST_PROTOCOL)
     
 for (en, th) in zip(data_en['intents_en'], data_th['intents_th']):
@@ -116,5 +112,5 @@ for th in out['intents_th'].iloc:
 out = pd.concat([out, pd.DataFrame({'fes_res_en': fes_res_en})], axis = 1)
 out = pd.concat([out, pd.DataFrame({'fes_res_th': fes_res_th})], axis = 1)
    
-out.to_parquet(f'./model/model_v{new_version}/intents.parquet')
-shutil.make_archive(f'model/model_v{new_version}', 'zip', f'./model/model_v{new_version}')
+out.to_parquet(f'./model/{model_name}/intents.parquet')
+shutil.make_archive(f'model/{model_name}', 'zip', f'./model/{model_name}')
