@@ -50,9 +50,7 @@ def get_latest_model(model_path: str) -> int:
         exit(1)
     
     last_trained_date = [os.path.getmtime(f'./model/{dir}/chat_model') for dir in detected_path]
-    
     last_trained = {k:v for (k, v) in zip(last_trained_date, detected_path)}
-    print(last_trained)
     
     return last_trained[last_trained_date[-1]]
 
