@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from chat_processing import process_message
 
-from utils.loader import get_model_version
+from utils.loader import load_chat_model
 from utils.logger import info_log, error_log
 
 flags_parser = argparse.ArgumentParser(
@@ -15,8 +15,12 @@ flags_parser = argparse.ArgumentParser(
 )
 
 flags_parser.add_argument('-d', '--debug', action='store_true')
+flags_parser.add_argument('-m', '--model', type=str)
 
 use_debug_mode = flags_parser.parse_args().debug
+selected_model = flags_parser.parse_args().model
+
+(model, model_name, data, label_encoder, word_encoder) = load_chat_model() if not selected_model else load_chat_model(selected_model)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -47,7 +51,7 @@ async def on_ready() -> None:
 
     info_log(f'Synced: {len(synced)} commands' if len(synced) != 1 else f'Synced: {len(synced)} command')
     info_log(f'Status: {"Debug" if use_debug_mode else "Production"}')
-    info_log(f'Model version: {get_model_version("./model")}')
+    info_log(f'Model name: {model_name}')
     info_log(f'Successfully logged in as: {client.user}')
 
 
@@ -58,7 +62,7 @@ async def on_message(message: discord.Message) -> None:
         return
     
     chat_message = message.content.strip()
-    await message.channel.send(process_message(chat_message, debug = use_debug_mode))
+    await message.channel.send(process_message(chat_message, model, data, label_encoder, word_encoder, debug = use_debug_mode))
     
     
 @client.event
@@ -124,7 +128,7 @@ async def helper(interaction: discord.Interaction) -> None:
 
 if __name__ == '__main__':
 
-    process_message('hello')
+    process_message('hello', model, data, label_encoder, word_encoder)
     load_dotenv()
     
     client.run(os.getenv('TOKEN'))

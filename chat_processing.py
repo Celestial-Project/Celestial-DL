@@ -7,21 +7,12 @@ import numpy as np
 import datetime as dt
 
 from tensorflow import keras
+from sklearn.preprocessing import LabelEncoder
 
 from utils.bot_info import BotData
 from utils.logger import info_log, incoming_log, outgoing_log
-from utils.loader import load_parquet_intents, load_label_encoder, load_keras_model, get_model_version
 
 MAX_LENGTH = 20
-
-model_version = get_model_version('./model') if get_model_version('./model') else exit(1)
-
-data = load_parquet_intents(f'./model/model_v{model_version}/intents.parquet') if load_parquet_intents(f'./model/model_v{model_version}/intents.parquet') else exit(1)
-
-label_encoder = load_label_encoder(f'./model/model_v{model_version}/label_encoder.pickle')
-word_encoder = load_label_encoder(f'./model/model_v{model_version}/word_label_encoder.pickle')
-
-model = load_keras_model(f'./model/model_v{model_version}/chat_model')
 
 bot_data = BotData()
 
@@ -46,11 +37,11 @@ def detect_thai(list_of_words: list[str]) -> bool:
     return percentage >= 50
 
 
-def to_sequences(list_of_words: list[str]) -> list[int]:
+def to_sequences(list_of_words: list[str], word_encoder: LabelEncoder) -> list[int]:
     return word_encoder.transform(list_of_words)
 
 
-def process_message(message: str, debug: bool = False) -> str:
+def process_message(message: str, model: keras.models.Sequential, data: list[dict], label_encoder: LabelEncoder, word_encoder: LabelEncoder, debug: bool = False) -> str:
 
     start = time.perf_counter()
 
@@ -62,7 +53,7 @@ def process_message(message: str, debug: bool = False) -> str:
     is_thai = detect_thai(tokenized_text)
     
     try:
-        sequence = to_sequences(tokenized_text)
+        sequence = to_sequences(tokenized_text, word_encoder)
 
     except ValueError:
 
