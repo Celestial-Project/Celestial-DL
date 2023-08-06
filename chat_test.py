@@ -2,12 +2,13 @@ import os
 
 from datetime import datetime as dt
 
-from utils.logger import info_log
-from utils.loader import get_model_version
+from utils.loader import load_chat_model
+from utils.logger import info_log, incoming_log, error_log
 
 from chat_processing import process_message
 
 # run this file to test your chat intents on the terminal before commit
+(model, model_name, data, label_encoder, word_encoder) = load_chat_model()
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -20,6 +21,8 @@ def read_input(message: str) -> None:
     '''
         Process the input message and take appropriate action.
     '''
+
+    global model, model_name, data, label_encoder, word_encoder
     
     if not message:
         return
@@ -32,19 +35,36 @@ def read_input(message: str) -> None:
         print('\u001b[41;1m  ctl  \u001b[0m ^D ctrl+d \t\t Quit the program.')
 
         return
+    
+    elif message in {'--model-swap', '-ms'}:
+        
+        selectable_model = [path.name for path in os.scandir('./model') if path.is_dir()]
+        
+        info_log('Selectable model:')
+        info_log(", ".join(selectable_model))
 
-    elif message in {'--model-info', '-mi'}:
+        incoming_log('Please select a model')
+        selected_model = input('\u001b[47;1m MS \u001b[0m ').strip()
 
-        model_version = get_model_version('./model')
-        last_trained_date = dt.fromtimestamp(os.path.getmtime(f'./model/model_v{model_version}/chat_model'))
+        if selected_model not in selectable_model:
+            error_log(f'Error: model "{selected_model}" does not exist.')
+            return
 
-        info_log(f'Model version: {model_version}')
-        info_log(f'Last trained: {last_trained_date.strftime("%d %B %Y")} ({last_trained_date.time().strftime("%H:%M:%S")})')
-        info_log(f'Model path: {os.path.abspath(f"./model/model_v{model_version}")}')
+        (model, model_name, data, label_encoder, word_encoder) = load_chat_model(selected_model)
 
         return
 
-    process_message(message, debug = True)
+    elif message in {'--model-info', '-mi'}:
+
+        last_trained_date = dt.fromtimestamp(os.path.getmtime(f'./model/{model_name}/chat_model'))
+
+        info_log(f'Model name: {model_name}')
+        info_log(f'Last trained: {last_trained_date.strftime("%d %B %Y")} ({last_trained_date.time().strftime("%H:%M:%S")})')
+        info_log(f'Model path: {os.path.abspath(f"./model/{model_name}")}')
+
+        return
+
+    process_message(message, model, data, label_encoder, word_encoder, debug = True)
 
 
 while True:
