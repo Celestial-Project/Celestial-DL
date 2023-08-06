@@ -53,6 +53,10 @@ def read_input(message: str) -> None:
 
         (model, model_name, data, label_encoder, word_encoder) = load_chat_model(selected_model)
 
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        info_log(f'Current model: {model_name}')
+
         return
 
     elif message in {'--model-info', '-mi'}:
