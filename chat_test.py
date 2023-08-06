@@ -31,6 +31,7 @@ def read_input(message: str) -> None:
 
         print('\u001b[43;1m macro \u001b[0m -h  --help \t\t Show this help message.')
         print('\u001b[43;1m macro \u001b[0m -mi --model-info \t Show model info.')
+        print('\u001b[43;1m macro \u001b[0m -ms --model-swap \t Swap model.')
         print('\u001b[41;1m  ctl  \u001b[0m ^C ctrl+c \t\t Quit the program.')
         print('\u001b[41;1m  ctl  \u001b[0m ^D ctrl+d \t\t Quit the program.')
 
