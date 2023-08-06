@@ -41,12 +41,35 @@ def load_keras_model(path: str) -> tensorflow.keras.models.Sequential:
     return tensorflow.keras.models.load_model(path)
 
 
-def get_model_version(model_path: str) -> int:
+def get_latest_model(model_path: str) -> int:
     
     detected_path = [dir for dir in os.listdir(model_path) if not dir.endswith('.zip') and dir != '.DS_Store']
     
     if not detected_path:
         error_log('Exception detected: The chat model directory is not found (If you have already download the model, please extract it to the model folder.)')
-        return
+        exit(1)
     
-    return max([int(dir[7:]) for dir in detected_path])
+    last_trained_date = [os.path.getmtime(f'./model/{dir}/chat_model') for dir in detected_path]
+    
+    last_trained = {k:v for (k, v) in zip(last_trained_date, detected_path)}
+    print(last_trained)
+    
+    return last_trained[last_trained_date[-1]]
+
+
+def load_chat_model(model_name: str = get_latest_model('./model')) -> tuple:
+
+    selectable_model = [path.name for path in os.scandir('./model') if path.is_dir()]
+    
+    if model_name not in selectable_model:
+        error_log(f'Error: model "{model_name}" does not exist.')
+        exit(1)
+
+    data = load_parquet_intents(f'./model/{model_name}/intents.parquet')
+
+    label_encoder = load_label_encoder(f'./model/{model_name}/label_encoder.pickle')
+    word_encoder = load_label_encoder(f'./model/{model_name}/word_label_encoder.pickle')
+
+    model = load_keras_model(f'./model/{model_name}/chat_model')
+
+    return (model, model_name, data, label_encoder, word_encoder)
