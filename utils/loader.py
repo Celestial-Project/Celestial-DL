@@ -41,7 +41,7 @@ def load_keras_model(path: str) -> tensorflow.keras.models.Sequential:
     return tensorflow.keras.models.load_model(path)
 
 
-def get_latest_model(model_path: str) -> int:
+def get_latest_model(model_path: str) -> str:
     
     detected_path = [dir for dir in os.listdir(model_path) if not dir.endswith('.zip') and dir != '.DS_Store']
     
