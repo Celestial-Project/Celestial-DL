@@ -7,7 +7,7 @@ from discord.ext import commands
 from chat_processing import process_message
 
 from utils.loader import load_chat_model
-from utils.logger import info_log, error_log
+from utils.logger import info_log, error_log, clear_log
 
 flags_parser = argparse.ArgumentParser(
     prog = 'Celestial Discord Bot',
@@ -37,7 +37,7 @@ client = commands.Bot(
 @client.event
 async def on_ready() -> None:
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+    clear_log()
 
     info_log('Syncing slash commands...')
     
@@ -47,7 +47,7 @@ async def on_ready() -> None:
     except Exception as e:
         error_log(f'Exception detected: \n{e}')
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+    clear_log()
 
     info_log(f'Synced: {len(synced)} commands' if len(synced) != 1 else f'Synced: {len(synced)} command')
     info_log(f'Status: {"Debug" if use_debug_mode else "Production"}')

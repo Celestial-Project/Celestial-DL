@@ -1,4 +1,3 @@
-import os
 import argparse
 
 from flask import Flask, request
@@ -7,7 +6,7 @@ from flask_cors import CORS, cross_origin
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-from utils.logger import info_log
+from utils.logger import info_log, clear_log
 from chat_processing import process_message
 
 flags_parser = argparse.ArgumentParser(
@@ -29,7 +28,7 @@ app.config['MAX_CONTENT_LENGTH'] = 1024
 
 def show_ready(port: int, debug: bool) -> None:
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+    clear_log()
     
     info_log('Chat REST API ready!')
     info_log(f'Mode: {"Debug" if debug else "Production"}')

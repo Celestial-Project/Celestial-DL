@@ -3,14 +3,14 @@ import os
 from datetime import datetime as dt
 
 from utils.loader import load_chat_model
-from utils.logger import info_log, incoming_log, error_log
+from utils.logger import info_log, incoming_log, error_log, clear_log
 
 from chat_processing import process_message
 
 # run this file to test your chat intents on the terminal before commit
 (model, model_name, data, label_encoder, word_encoder) = load_chat_model()
 
-os.system('cls' if os.name == 'nt' else 'clear')
+clear_log()
 
 info_log('Welcome to Celestial command-line testing interface!')
 info_log('Type -h or --help to see list of test macro and controls.')
@@ -53,7 +53,7 @@ def read_input(message: str) -> None:
 
         (model, model_name, data, label_encoder, word_encoder) = load_chat_model(selected_model)
 
-        os.system('cls' if os.name == 'nt' else 'clear')
+        clear_log()
 
         info_log(f'Current model: {model_name}')
 
