@@ -122,6 +122,12 @@ async def helper(interaction: discord.Interaction) -> None:
     )
     
     help_embed.add_field(
+        name = 'Wanna teach me something?', 
+        value = 'Use `/suggestion` to suggest new response for me!', 
+        inline = False
+    )
+    
+    help_embed.add_field(
         name = 'Report Issue', 
         value = 'If there is a problem with the bot response or any bug with me, \nfeel free to report it to our creator at: **[Github issues](https://github.com/Celestial-Project/Celestial-DL/issues)**', 
         inline = True
@@ -133,7 +139,7 @@ async def helper(interaction: discord.Interaction) -> None:
         inline = False
     )
     
-    help_embed.set_footer(text = '© 2023 MIT License - StrixzIV#6258')
+    help_embed.set_footer(text = '© 2023 MIT License - @strixziv')
     
     await interaction.response.send_message(embed = help_embed)
 
