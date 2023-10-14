@@ -7,7 +7,10 @@ from discord.ext import commands
 from chat_processing import process_message
 
 from utils.loader import load_chat_model
+from utils.database import SuggestionDatabase
 from utils.logger import info_log, error_log, clear_log
+
+from modals.suggestion_modal import SuggestionsModal
 
 flags_parser = argparse.ArgumentParser(
     prog = 'Celestial Discord Bot',
@@ -20,7 +23,11 @@ flags_parser.add_argument('-m', '--model', type=str)
 use_debug_mode = flags_parser.parse_args().debug
 selected_model = flags_parser.parse_args().model
 
+load_dotenv()
+
 (model, model_name, data, label_encoder, word_encoder) = load_chat_model() if not selected_model else load_chat_model(selected_model)
+
+db = SuggestionDatabase(os.getenv('DB_HOST'), os.getenv('DB_USER'), os.getenv('DB_PASS'))
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -88,6 +95,11 @@ async def setup_chat(interaction: discord.Interaction) -> None:
     await guild.create_text_channel(bot_channel_name)
     await interaction.response.send_message('Setup complete!')
 
+
+@client.tree.command(name = 'suggestion', description = 'Suggest a new intents for next version.')
+async def suggestion(interaction: discord.Interaction) -> None:
+    await interaction.response.send_modal(SuggestionsModal(db))
+
     
 @client.tree.command(name = 'help', description = 'Display a help message.')
 async def helper(interaction: discord.Interaction) -> None:
@@ -127,8 +139,5 @@ async def helper(interaction: discord.Interaction) -> None:
 
 
 if __name__ == '__main__':
-
     process_message('hello', model, data, label_encoder, word_encoder)
-    load_dotenv()
-    
     client.run(os.getenv('TOKEN'))
