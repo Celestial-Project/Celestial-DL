@@ -26,13 +26,13 @@ class SuggestionDatabase:
         if 'celestial_suggestions' not in databases_list:
             error_log('Error: Suggestions database not found.')
             info_log('Creating suggestions database...')
-            self.create_database()
+            self.__create_database()
             info_log('Suggestion database created successfully.')
 
         self.__cursor.execute(f'USE celestial_suggestions')
 
 
-    def create_database(self) -> None:
+    def __create_database(self) -> None:
 
         self.__cursor.execute('CREATE DATABASE celestial_suggestions')
 
