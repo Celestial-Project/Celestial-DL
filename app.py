@@ -51,19 +51,18 @@ def send_response():
 
 def main():
 
+    process_message('hello')
+
     if debug:
-
-        process_message('hello')
+        
         show_ready(PORT, debug)
-
         app.run(host = '0.0.0.0', port = PORT)
+        
         return
 
     from waitress import serve
-    
-    process_message('hello')
+
     show_ready(PORT, debug)
-    
     serve(app, host = '0.0.0.0', port = PORT)
     
 
