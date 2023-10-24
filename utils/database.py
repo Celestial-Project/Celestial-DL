@@ -6,18 +6,9 @@ from utils.logger import info_log, error_log
 
 class SuggestionDatabase:
 
-    def __init__(self, host: str, user: str, password: str):
+    def __init__(self, db: mysql.connector.MySQLConnection):
 
-        info_log('Connecting to suggestion database...')
-
-        self.__db = mysql.connector.connect(
-            host = host,
-            user = user,
-            password = password
-        )
-
-        info_log('Connected to database.')
-
+        self.__db = db
         self.__cursor = self.__db.cursor()
 
         self.__cursor.execute('SHOW DATABASES')
@@ -97,3 +88,21 @@ class SuggestionDatabase:
         
         self.__cursor.execute(query, data)
         self.__db.commit()
+
+
+def create_database_connection(host: str, user: str, password: str) -> mysql.connector.MySQLConnection:
+
+    '''
+        Connect to mysql database with the given credential.
+    '''
+
+    info_log('Connecting to database...')
+
+    db = mysql.connector.connect(
+        host = host,
+        user = user,
+        password = password
+    )
+
+    info_log('Connected to database.')
+    return db
