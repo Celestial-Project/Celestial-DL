@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 
 from utils.logger import error_log
 
-def _add_responses(chat: dict, response: dict) -> dict:
+def __add_responses(chat: dict, response: dict) -> dict:
 
     if response and chat:
         chat['responses'] = response
@@ -25,8 +25,8 @@ def load_parquet_intents(path: str) -> list[dict]:
         error_log('Exception detected: Your model is older than v7 which is not compatable with our current chat processing module.')
         return
     
-    data['intents_en'] = data.apply(lambda row: _add_responses(row['intents_en'], row['fes_res_en']), axis = 1)
-    data['intents_th'] = data.apply(lambda row: _add_responses(row['intents_th'], row['fes_res_th']), axis = 1)
+    data['intents_en'] = data.apply(lambda row: __add_responses(row['intents_en'], row['fes_res_en']), axis = 1)
+    data['intents_th'] = data.apply(lambda row: __add_responses(row['intents_th'], row['fes_res_th']), axis = 1)
     
     chat_list = data['intents_en'].tolist() + data['intents_th'].tolist()
     return [chat for chat in chat_list if chat]
