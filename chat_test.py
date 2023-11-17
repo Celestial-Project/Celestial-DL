@@ -10,6 +10,9 @@ from chat_processing import process_message
 # run this file to test your chat intents on the terminal before commit
 (model, model_name, data, label_encoder, word_encoder) = load_chat_model()
 
+# Initialize tensorflow model
+process_message('hello', model, data, label_encoder, word_encoder)
+
 clear_log()
 
 info_log('Welcome to Celestial command-line testing interface!')
