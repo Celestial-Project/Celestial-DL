@@ -9,8 +9,7 @@ from chat_processing import process_message
 import utils.database
 from utils.loader import load_chat_model
 from utils.logger import info_log, error_log, clear_log
-
-from modals.suggestion_modal import SuggestionsModal
+from utils.modals.suggestion_modal import SuggestionsModal
 
 flags_parser = argparse.ArgumentParser(
     prog = 'Celestial Discord Bot',
