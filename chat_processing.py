@@ -86,6 +86,9 @@ def process_message(message: str, model: keras.models.Sequential, data: list[dic
         if intents['tag'] != tag:
             continue
 
+        if 'month' not in list(intents.keys()):
+            response = np.random.choice(intents['responses'])
+
         if intents['month']:
 
             festival_date = intents['date'].astype(np.int64)
