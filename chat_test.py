@@ -3,9 +3,8 @@ import os
 from datetime import datetime as dt
 
 from utils.loader import load_chat_model
+from utils.chat_processing import process_message
 from utils.logger import info_log, incoming_log, error_log, clear_log
-
-from chat_processing import process_message
 
 # run this file to test your chat intents on the terminal before commit
 (model, model_name, data, label_encoder, word_encoder) = load_chat_model()

@@ -4,10 +4,10 @@ import argparse
 
 from dotenv import load_dotenv
 from discord.ext import commands
-from chat_processing import process_message
 
 import utils.database
 from utils.loader import load_chat_model
+from utils.chat_processing import process_message
 from utils.logger import info_log, error_log, clear_log
 from utils.modals.suggestion_modal import SuggestionsModal
 
