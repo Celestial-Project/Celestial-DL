@@ -7,7 +7,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 from utils.logger import info_log, clear_log
-from chat_processing import process_message
+from utils.chat_processing import process_message
 
 flags_parser = argparse.ArgumentParser(
     prog = 'Celestial API',
