@@ -52,7 +52,7 @@ def get_latest_model(model_path: str) -> str:
     last_trained_date = [os.path.getmtime(f'./model/{dir}/chat_model') for dir in detected_path]
     last_trained = {k:v for (k, v) in zip(last_trained_date, detected_path)}
     
-    return last_trained[last_trained_date[-1]]
+    return last_trained[last_trained_date[0]]
 
 
 def load_chat_model(model_name: str = get_latest_model('./model')) -> tuple:
