@@ -2,6 +2,7 @@
 *.ipynb
 *.DS_Store
 *__pycache__
+.pytest_cache
 
 /model/*
 !/model/*.zip
