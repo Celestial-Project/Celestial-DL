@@ -4,10 +4,10 @@ import argparse
 
 from dotenv import load_dotenv
 from discord.ext import commands
-from chat_processing import process_message
 
 import utils.database
 from utils.loader import load_chat_model
+from utils.chat_processing import process_message
 from utils.logger import info_log, error_log, clear_log
 from utils.modals.suggestion_modal import SuggestionsModal
 
@@ -43,8 +43,9 @@ client = commands.Bot(
 
 @client.event
 async def on_ready() -> None:
-
-    clear_log()
+    
+    if not use_debug_mode:
+        clear_log()
 
     info_log('Syncing slash commands...')
     
@@ -54,7 +55,8 @@ async def on_ready() -> None:
     except Exception as e:
         error_log(f'Exception detected: \n{e}')
 
-    clear_log()
+    if not use_debug_mode:
+        clear_log()
 
     info_log(f'Synced: {len(synced)} commands' if len(synced) != 1 else f'Synced: {len(synced)} command')
     info_log(f'Status: {"Debug" if use_debug_mode else "Production"}')
