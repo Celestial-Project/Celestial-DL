@@ -24,6 +24,8 @@ class SuggestionDatabase:
         
         
     def __execute_query(self, query: str):
+
+        self.__db.ping(reconnect = True)
         
         result = self.__cursor.execute(query)
         self.__db.commit()
@@ -32,6 +34,8 @@ class SuggestionDatabase:
     
     
     def __execute_query(self, query: str, data: dict):
+
+        self.__db.ping(reconnect = True)
         
         result = self.__cursor.execute(query, data)
         self.__db.commit()
