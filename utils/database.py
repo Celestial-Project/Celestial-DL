@@ -33,7 +33,7 @@ class SuggestionDatabase:
         return result
     
     
-    def __execute_query(self, query: str, data: dict):
+    def __execute_query_with_data(self, query: str, data: dict):
 
         self.__db.ping(reconnect = True)
         
@@ -106,7 +106,7 @@ class SuggestionDatabase:
             )
         """
         
-        self.__execute_query(query, data)
+        self.__execute_query_with_data(query, data)
     
 
 def create_database_connection(host: str, user: str, password: str) -> mysql.connector.MySQLConnection:
