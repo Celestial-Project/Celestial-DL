@@ -21,6 +21,14 @@ class SuggestionDatabase:
             info_log('Suggestion database created successfully.')
 
         self.__cursor.execute(f'USE celestial_suggestions')
+        
+        
+    def __execute_query(self, query: str):
+        return self.__cursor.execute(query)
+    
+    
+    def __execute_query(self, query: str, data: dict):
+        return self.__cursor.execute(query, data)
 
 
     def __create_database(self) -> None:
