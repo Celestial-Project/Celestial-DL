@@ -11,7 +11,7 @@ class SuggestionDatabase:
         self.__db = db
         self.__cursor = self.__db.cursor()
 
-        self.__cursor.execute('SHOW DATABASES')
+        self.__execute_query('SHOW DATABASES')
         databases_list = [db[0] for db in self.__cursor.fetchall()]
 
         if 'celestial_suggestions' not in databases_list:
@@ -20,25 +20,33 @@ class SuggestionDatabase:
             self.__create_database()
             info_log('Suggestion database created successfully.')
 
-        self.__cursor.execute(f'USE celestial_suggestions')
+        self.__execute_query('USE celestial_suggestions')
         
         
     def __execute_query(self, query: str):
-        return self.__cursor.execute(query)
+        
+        result = self.__cursor.execute(query)
+        self.__db.commit()
+        
+        return result
     
     
     def __execute_query(self, query: str, data: dict):
-        return self.__cursor.execute(query, data)
+        
+        result = self.__cursor.execute(query, data)
+        self.__db.commit()
+        
+        return result
 
 
     def __create_database(self) -> None:
 
-        self.__cursor.execute('CREATE DATABASE celestial_suggestions')
+        self.__execute_query('CREATE DATABASE celestial_suggestions')
 
-        self.__cursor.execute('USE celestial_suggestions')
-        self.__cursor.execute('SET time_zone = "+07:00"')
+        self.__execute_query('USE celestial_suggestions')
+        self.__execute_query('SET time_zone = "+07:00"')
 
-        self.__cursor.execute(
+        self.__execute_query(
             """
                 CREATE TABLE legacy_suggestions (
                     user VARCHAR(255) NOT NULL, 
@@ -50,7 +58,7 @@ class SuggestionDatabase:
             """
         )
         
-        self.__cursor.execute(
+        self.__execute_query(
             """
                 CREATE TABLE dl_suggestions (
                     user VARCHAR(255) NOT NULL, 
@@ -94,9 +102,8 @@ class SuggestionDatabase:
             )
         """
         
-        self.__cursor.execute(query, data)
-        self.__db.commit()
-
+        self.__execute_query(query, data)
+    
 
 def create_database_connection(host: str, user: str, password: str) -> mysql.connector.MySQLConnection:
 
