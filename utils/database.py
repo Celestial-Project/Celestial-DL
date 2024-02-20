@@ -11,28 +11,39 @@ class SuggestionDatabase:
         self.__db = db
         self.__cursor = self.__db.cursor()
 
-        self.__cursor.execute('SHOW DATABASES')
-        databases_list = [db[0] for db in self.__cursor.fetchall()]
+        self.__initialize_database()
+        
+        
+    def __execute_query(self, query: str):
 
-        if 'celestial_suggestions' not in databases_list:
-            error_log('Error: Suggestions database not found.')
-            info_log('Creating suggestions database...')
-            self.__create_database()
-            info_log('Suggestion database created successfully.')
+        self.__db.ping(reconnect = True)
+        result = self.__cursor.execute(query)
+        
+        return result
+    
+    
+    def __execute_query_with_data(self, query: str, data: dict):
 
-        self.__cursor.execute(f'USE celestial_suggestions')
+        self.__db.ping(reconnect = True)
+        
+        result = self.__cursor.execute(query, data)
+        self.__db.commit()
+        
+        return result
+    
+    
+    def __initialize_database(self) -> None:
+        
+        info_log('Initializing database...')
+        
+        self.__execute_query('CREATE DATABASE IF NOT EXISTS celestial_suggestions')
+        
+        self.__execute_query('USE celestial_suggestions')
+        self.__execute_query('SET time_zone = "+07:00"')
 
-
-    def __create_database(self) -> None:
-
-        self.__cursor.execute('CREATE DATABASE celestial_suggestions')
-
-        self.__cursor.execute('USE celestial_suggestions')
-        self.__cursor.execute('SET time_zone = "+07:00"')
-
-        self.__cursor.execute(
+        self.__execute_query(
             """
-                CREATE TABLE legacy_suggestions (
+                CREATE TABLE IF NOT EXISTS legacy_suggestions (
                     user VARCHAR(255) NOT NULL, 
                     bot_input VARCHAR(4000) NOT NULL, 
                     responses VARCHAR(4000) NOT NULL, 
@@ -42,9 +53,9 @@ class SuggestionDatabase:
             """
         )
         
-        self.__cursor.execute(
+        self.__execute_query(
             """
-                CREATE TABLE dl_suggestions (
+                CREATE TABLE IF NOT EXISTS dl_suggestions (
                     user VARCHAR(255) NOT NULL, 
                     bot_input VARCHAR(4000) NOT NULL, 
                     responses VARCHAR(4000) NOT NULL, 
@@ -86,9 +97,8 @@ class SuggestionDatabase:
             )
         """
         
-        self.__cursor.execute(query, data)
-        self.__db.commit()
-
+        self.__execute_query_with_data(query, data)
+    
 
 def create_database_connection(host: str, user: str, password: str) -> mysql.connector.MySQLConnection:
 
@@ -98,11 +108,16 @@ def create_database_connection(host: str, user: str, password: str) -> mysql.con
 
     info_log('Connecting to database...')
 
-    db = mysql.connector.connect(
-        host = host,
-        user = user,
-        password = password
-    )
+    try:
+        db = mysql.connector.connect(
+            host = host,
+            user = user,
+            password = password
+        )
+        
+    except mysql.connector.Error:
+        error_log('Error: cannot create database connection to MySQL database.')
+        exit(1)
 
     info_log('Connected to database.')
     return db
