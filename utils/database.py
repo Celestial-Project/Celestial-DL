@@ -2,7 +2,7 @@ import time
 import datetime as dt
 import mysql.connector
 
-from utils.logger import info_log
+from utils.logger import info_log, error_log
 
 class SuggestionDatabase:
 
@@ -108,11 +108,16 @@ def create_database_connection(host: str, user: str, password: str) -> mysql.con
 
     info_log('Connecting to database...')
 
-    db = mysql.connector.connect(
-        host = host,
-        user = user,
-        password = password
-    )
+    try:
+        db = mysql.connector.connect(
+            host = host,
+            user = user,
+            password = password
+        )
+        
+    except mysql.connector.Error:
+        error_log('Error: cannot create database connection to MySQL database.')
+        exit(1)
 
     info_log('Connected to database.')
     return db
