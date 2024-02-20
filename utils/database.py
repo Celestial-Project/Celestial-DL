@@ -2,7 +2,7 @@ import time
 import datetime as dt
 import mysql.connector
 
-from utils.logger import info_log, error_log
+from utils.logger import info_log
 
 class SuggestionDatabase:
 
@@ -11,16 +11,7 @@ class SuggestionDatabase:
         self.__db = db
         self.__cursor = self.__db.cursor()
 
-        self.__execute_query('SHOW DATABASES')
-        databases_list = [db[0] for db in self.__cursor.fetchall()]
-
-        if 'celestial_suggestions' not in databases_list:
-            error_log('Error: Suggestions database not found.')
-            info_log('Creating suggestions database...')
-            self.__create_database()
-            info_log('Suggestion database created successfully.')
-
-        self.__execute_query('USE celestial_suggestions')
+        self.__initialize_database()
         
         
     def __execute_query(self, query: str):
@@ -39,18 +30,20 @@ class SuggestionDatabase:
         self.__db.commit()
         
         return result
-
-
-    def __create_database(self) -> None:
-
-        self.__execute_query('CREATE DATABASE celestial_suggestions')
-
+    
+    
+    def __initialize_database(self) -> None:
+        
+        info_log('Initializing database...')
+        
+        self.__execute_query('CREATE DATABASE IF NOT EXISTS celestial_suggestions')
+        
         self.__execute_query('USE celestial_suggestions')
         self.__execute_query('SET time_zone = "+07:00"')
 
         self.__execute_query(
             """
-                CREATE TABLE legacy_suggestions (
+                CREATE TABLE IF NOT EXISTS legacy_suggestions (
                     user VARCHAR(255) NOT NULL, 
                     bot_input VARCHAR(4000) NOT NULL, 
                     responses VARCHAR(4000) NOT NULL, 
@@ -62,7 +55,7 @@ class SuggestionDatabase:
         
         self.__execute_query(
             """
-                CREATE TABLE dl_suggestions (
+                CREATE TABLE IF NOT EXISTS dl_suggestions (
                     user VARCHAR(255) NOT NULL, 
                     bot_input VARCHAR(4000) NOT NULL, 
                     responses VARCHAR(4000) NOT NULL, 
