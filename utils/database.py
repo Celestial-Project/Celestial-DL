@@ -3,6 +3,7 @@ import datetime as dt
 import mysql.connector
 
 from utils.logger import info_log, error_log
+from utils.decorator import retry
 
 class SuggestionDatabase:
 
@@ -100,6 +101,7 @@ class SuggestionDatabase:
         self.__execute_query_with_data(query, data)
     
 
+@retry(attempts = 3, delay = 1)
 def create_database_connection(host: str, user: str, password: str) -> mysql.connector.MySQLConnection:
 
     '''
@@ -116,8 +118,7 @@ def create_database_connection(host: str, user: str, password: str) -> mysql.con
         )
         
     except mysql.connector.Error:
-        error_log('Error: cannot create database connection to MySQL database.')
-        exit(1)
+        raise mysql.connector.Error('Error: cannot create database connection to MySQL database.')
 
     info_log('Connected to database.')
     return db
