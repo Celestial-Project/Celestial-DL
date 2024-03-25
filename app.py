@@ -19,9 +19,11 @@ flags_parser.add_argument('-p', '--port', nargs = '?', default = 21250, type = i
 flags_parser.add_argument('-d', '--debug', action = 'store_true')
 flags_parser.add_argument('-m', '--model', type=str)
 
-debug = flags_parser.parse_args().debug
-PORT = flags_parser.parse_args().port
-selected_model = flags_parser.parse_args().model
+args = flags_parser.parse_args()
+
+debug = args.debug
+PORT = args.port
+selected_model = args.model
 
 app = Flask(__name__)
 cors = CORS(app)

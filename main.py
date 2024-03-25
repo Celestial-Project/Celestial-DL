@@ -19,8 +19,10 @@ flags_parser = argparse.ArgumentParser(
 flags_parser.add_argument('-d', '--debug', action='store_true')
 flags_parser.add_argument('-m', '--model', type=str)
 
-use_debug_mode = flags_parser.parse_args().debug
-selected_model = flags_parser.parse_args().model
+args = flags_parser.parse_args()
+
+use_debug_mode = args.debug
+selected_model = args.model
 
 load_dotenv()
 
